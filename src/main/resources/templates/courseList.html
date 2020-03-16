@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>管理课程信息</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body>
+<div th:insert="TopAndLeft :: top"></div>
+<div th:insert="TopAndLeft :: left"></div>
+
+<div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
+    <form class="form-inline col-lg-5" action="/course/searchByName">
+        <div class="form-group">
+            <label class="sr-only" for="courseName">课程名：</label>
+            <input type="text" class="form-control" id="courseName" name="courseName" placeholder="输入课程名">
+        </div>
+        <button type="submit" class="btn btn-default">开始查找</button>
+    </form>
+
+    <hr>
+
+    <div class="container-fluid">
+        <table class="table table-hover" style="margin: 10px">
+            <tr align="center">
+                <td>ID</td>
+                <td>课程号</td>
+                <td>课程名</td>
+                <td>教师工号</td>
+                <td>教师名</td>
+                <td>授课班级</td>
+                <td>选择你的操作</td>
+            </tr>
+            <tr th:each="course : ${courses}" align="center">
+                <td th:text="${course.id}"></td>
+                <td th:text="${course.courseNumber}"></td>
+                <td th:text="${course.courseName}"></td>
+                <td th:text="${course.TNumber}"></td>
+                <td th:text="${course.TName}"></td>
+                <td th:text="${course.className}"></td>
+                <td>
+                    <a class="btn btn-info btn-xs" th:href="@{'/courseUpdate/course/'+${course.id}}" >修改</a>&nbsp
+                    <a class="btn btn-danger btn-xs" th:href="@{'/courseDel/'+${course.id}}" >删除</a>
+                </td>
+            </tr>
+            <tr >
+                <td align="center" colspan="8">
+                    <a th:href="@{/courseAdd}">添加课程</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

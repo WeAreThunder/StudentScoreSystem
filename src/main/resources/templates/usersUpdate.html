@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加用户</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body>
+<div th:insert="TopAndLeft :: top"></div>
+<div th:insert="TopAndLeft :: left"></div>
+<div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
+    <div class="container-fluid">
+        <form action="/usersUpdate" method="post" style="margin: 10px">
+            <div class="form-group">
+                <label for="name">用户名：</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="请输入用户名" th:field="${users.name}">
+            </div>
+            <div class="form-group">
+                <label for="password">密码：</label>
+                <input type="text" class="form-control" id="password" name="password" placeholder="请输入密码" th:field="${users.password}">
+            </div>
+            <div class="form-group">
+                <label for="type">用户类型：</label>
+                <input type="text" class="form-control" id="type" name="type" placeholder="如：管理员，教师，教师管理员等" th:field="${users.type}">
+            </div>
+            <div>
+                <a>
+                    <input class="btn btn-primary" type="submit" value="提交" />
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

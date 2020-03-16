@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>list</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/community.css">
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小雷的crud实验室</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <form class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="你想看点什么好康的">
+                </div>
+                <button type="submit" class="btn btn-default">搜索</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/publish">发布问题</a>
+                </li>
+                <!--                如果session中的user不为空，那么显示“我” th:if="${session.user!=null}"  th:text="${session.user.getName()}"-->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">消息中心</a></li>
+                        <li><a href="#">个人资料</a></li>
+                        <li><a href="#">退出登录</a></li>
+                    </ul>
+                </li>
+                <!--                当session中的user为空时，显示登录键 th:if="${session.user==null}"-->
+                <li>
+                    <a href="https://github.com/login/oauth/authorize?client_id=3598b3980ea7d89ae37e&redirect_uri=http://localhost:8080/callback&scope=user&state=1">登录</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid main">
+    <table class="table table-hover" style="margin: 10px">
+        <tr align="center">
+            <td>ID</td>
+            <td>姓名</td>
+            <td>性别</td>
+            <td>年龄</td>
+            <td>籍贯</td>
+            <td>QQ</td>
+            <td>邮箱</td>
+            <td>选择你的操作</td>
+        </tr>
+        <tr th:each="user:${users}" align="center">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}" id="tname" name="tname"></td>
+            <td th:text="${user.gender}"></td>
+            <td th:text="${user.age}"></td>
+            <td th:text="${user.address}"></td>
+            <td th:text="${user.qq}"></td>
+            <td th:text="${user.email}"></td>
+            <td>
+                <a class="btn btn-info btn-sm" href="update.html" th:href="@{'/update/user/'+${user.id}}">修改</a>&nbsp
+                <a class="btn btn-danger btn-sm" href="list.html" th:href="@{/del(id=${user.id})}">删除</a>
+            </td>
+        </tr>
+        <tr >
+            <td align="center" colspan="8">
+                <a href="add.html" th:href="@{/add}">添加联系人</a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

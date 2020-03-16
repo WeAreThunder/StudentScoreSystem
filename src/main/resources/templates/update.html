@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>list</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小雷的crud实验室</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <form class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="你想看点什么好康的">
+                </div>
+                <button type="submit" class="btn btn-default">搜索</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/publish">发布问题</a>
+                </li>
+                <!--                如果session中的user不为空，那么显示“我” th:if="${session.user!=null}"  th:text="${session.user.getName()}"-->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">消息中心</a></li>
+                        <li><a href="#">个人资料</a></li>
+                        <li><a href="#">退出登录</a></li>
+                    </ul>
+                </li>
+                <!--                当session中的user为空时，显示登录键 th:if="${session.user==null}"-->
+                <li>
+                    <a href="https://github.com/login/oauth/authorize?client_id=3598b3980ea7d89ae37e&redirect_uri=http://localhost:8080/callback&scope=user&state=1">登录</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid main">
+    <form action="/saveI" method="post" style="margin: 10px">
+        <div class="form-group">
+            <label for="name">姓名：</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="请输入姓名" th:field="${user.name}">
+        </div>
+        <div class="form-group">
+            <label for="gender">性别：</label>
+            <input type="text" class="form-control" id="gender" name="gender" placeholder="请输入性别" th:field="${user.gender}">
+        </div>
+        <div class="form-group">
+            <label for="age">年龄：</label>
+            <input type="text" class="form-control" id="age" name="age" placeholder="请输入年龄" th:field="${user.age}">
+        </div>
+        <div class="form-group">
+            <label for="address">籍贯：</label>
+            <input type="text" class="form-control" id="address" name="address" placeholder="请输入籍贯" th:field="${user.address}">
+        </div>
+        <div class="form-group">
+            <label for="qq">QQ：</label>
+            <input type="text" class="form-control" id="qq" name="qq" placeholder="请输入QQ号码" th:field="${user.qq}">
+        </div>
+        <div class="form-group">
+            <label for="email">Email：</label>
+            <input type="text" class="form-control" id="email" name="email" placeholder="请输入邮箱地址" th:field="${user.email}">
+        </div>
+        <div>
+            <a th:href="@{/saveU}">
+                <input class="btn btn-primary" type="submit" value="提交" />
+            </a>
+            <a th:href="@{/update}" href="update.html">
+                <input class="btn btn-default" type="submit" value="重置" />
+            </a>
+            <a href="list.html" th:href="@{/list}">
+                <input class="btn btn-default" type="submit" value="返回" />
+            </a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

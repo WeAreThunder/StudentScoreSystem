@@ -1,0 +1,26 @@
+/*主页背景色*/
+body{
+    background-color: #eeeeee;
+}
+/*模块背景色*/
+.main{
+    background-color: white;
+    margin: 30px;
+}
+/*发布按钮的格式*/
+.btn-publish{
+    float:right;
+    margin-bottom: 15px;
+}
+/*主页上问题图片的大小*/
+.media-object{
+    width: 50px;
+    height: 50px;
+}
+
+.text-desc{
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}
+

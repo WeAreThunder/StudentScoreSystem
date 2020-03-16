@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>管理用户信息</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body>
+<div th:insert="TopAndLeft :: top"></div>
+<div th:insert="TopAndLeft :: left"></div>
+
+<div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
+    <hr>
+    <div class="container-fluid">
+        <table class="table table-hover" style="margin: 10px">
+            <tr align="center">
+                <td>ID</td>
+                <td>用户类型</td>
+                <td>权限等级</td>
+                <td>选择你的操作</td>
+            </tr>
+            <tr th:each="userType : ${userTypes}" align="center">
+                <td th:text="${userType.id}"></td>
+                <td th:text="${userType.type}"></td>
+                <td th:text="${userType.power}"></td>
+                <td>
+                    <a class="btn btn-info btn-xs" th:href="@{'/userTypeUpdate/userType/'+${userType.type}}" >修改</a>&nbsp
+                    <a class="btn btn-danger btn-xs" th:href="@{'/userTypeDel/'+${userType.type}}" >删除</a>
+                </td>
+            </tr>
+            <tr >
+                <td align="center" colspan="4">
+                    <a th:href="@{/userTypeAdd}">添加新对象</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+    <div class="panel panel-primary" style="margin: 10px">
+        <div class="panel-heading">
+            <h3 class="panel-title">权限相关问题</h3>
+        </div>
+        <div class="panel-body">
+            <p>权限等级与可访问的界面对应关系如下：</p>
+            <hr>
+            <p>权限等级 >=1 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 学生成绩信息管理</p>
+            <p>权限等级 >=2 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 学生个人信息管理</p>
+            <p>权限等级 >=4 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 课程详细信息管理</p>
+            <p>权限等级 >=6 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 教师个人信息管理</p>
+            <p>权限等级 >=8 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 用户管理</p>
+            <p>权限等级 >=9 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 对象管理</p>
+            <p>权限等级 >=10 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 面板管理</p>
+            <hr>
+            <p class="text-danger">请在操作数据前先阅读本提示</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

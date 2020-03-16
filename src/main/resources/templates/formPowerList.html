@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>管理用户信息</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body>
+<div th:insert="TopAndLeft :: top"></div>
+<div th:insert="TopAndLeft :: left"></div>
+
+<div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
+    <hr>
+    <div class="container-fluid">
+        <table class="table table-hover" style="margin: 10px">
+            <tr align="center">
+                <td>ID</td>
+                <td>页面名</td>
+                <td>权限参数</td>
+                <td>修改</td>
+            </tr>
+            <tr th:each="formPower : ${formPowers}" align="center">
+                <td th:text="${formPower.id}"></td>
+                <td th:text="${formPower.form}"></td>
+                <td th:text="${formPower.set}"></td>
+                <td>
+                    <a class="btn btn-info btn-xs" th:href="@{'/formPowerUpdate/formPower/'+${formPower.form}}" >修改</a>&nbsp
+                </td>
+            </tr>
+            <tr >
+                <td align="center" colspan="4">
+                    <p>不可新建页面权限参数</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="col-lg-3  col-md-12 col-sm-12 col-xs-12">
+    <div class="panel panel-primary" style="margin: 10px">
+        <div class="panel-heading">
+            <h3 class="panel-title">权限参数相关问题</h3>
+        </div>
+        <div class="panel-body">
+            <p>! ! ! 权限参数将会对所有的用户生效 ! ! !</p>
+            <p>权限参数与可访问的界面对应关系如下：</p>
+            <hr>
+            <p>权限参数第1位 =1 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 学生管理面板</p>
+            <p>权限参数第2位 =1 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 学生成绩信息管理</p>
+            <p>权限参数第3位 =1 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 学生个人信息管理</p>
+            <p>权限参数第4位 =1 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 课程管理面板</p>
+            <p>权限参数第5位 =1 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 课程详细信息管理</p>
+            <p>权限参数第6位 =1 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 教师管理面板</p>
+            <p>权限参数第7位 =1 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 教师个人信息管理</p>
+            <p>权限参数第8位 =1 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 管理员面板</p>
+            <p>权限参数第9位 =1 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 用户管理</p>
+            <p>权限参数第10位 =1 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 对象管理</p>
+            <p>权限参数第11位 =1 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 面板管理</p>
+            <hr>
+            <p class="text-danger">请在操作数据前先阅读本提示</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

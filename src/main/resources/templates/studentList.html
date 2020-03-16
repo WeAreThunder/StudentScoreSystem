@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>管理学生信息</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body>
+<div th:insert="TopAndLeft :: top"></div>
+<div th:insert="TopAndLeft :: left"></div>
+
+<div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
+    <form class="form-inline col-lg-5" action="/student/searchByName">
+        <div class="form-group">
+            <label class="sr-only" for="sName">姓名：</label>
+            <input type="text" class="form-control" id="sName" name="sName" placeholder="输入名字">
+        </div>
+        <button type="submit" class="btn btn-default">开始查找</button>
+    </form>
+
+    <div class="col-lg-5" style="float:right;">
+        <form class="form-horizontal" id="form_table" action="/student/upExcel" enctype="multipart/form-data" method="post">
+            <input class="form-input col-lg-7" type="file" name="filename"></input>
+            <button type="submit" class="btn btn-primary">导入</button>
+            <a href="/student/putExcel" class="btn btn-primary">导出</a>
+        </form>
+    </div>
+
+    <hr>
+
+    <div class="container-fluid">
+        <table class="table table-hover" style="margin: 10px">
+            <tr align="center">
+                <td>ID</td>
+                <td>学号</td>
+                <td>姓名</td>
+                <td>性别</td>
+                <td>出生日期</td>
+                <td>班级名称</td>
+                <td>手机号码</td>
+                <td>籍贯</td>
+                <td>选择你的操作</td>
+            </tr>
+            <tr th:each="student : ${students}" align="center">
+                <td th:text="${student.id}"></td>
+                <td th:text="${student.SNumber}"></td>
+                <td th:text="${student.SName}"></td>
+                <td th:text="${student.sex}"></td>
+                <td th:text="${student.birthday}"></td>
+                <td th:text="${student.className}"></td>
+                <td th:text="${student.phone}"></td>
+                <td th:text="${student.address}"></td>
+                <td>
+                    <a class="btn btn-info btn-xs" th:href="@{'/studentUpdate/student/'+${student.SNumber}}" >修改</a>&nbsp
+                    <a class="btn btn-danger btn-xs" th:href="@{'/studentDel/'+${student.SNumber}}" >删除</a>
+                </td>
+            </tr>
+            <tr >
+                <td align="center" colspan="9">
+                    <a th:href="@{/studentAdd}">添加学生</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

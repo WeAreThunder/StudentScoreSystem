@@ -24,7 +24,8 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="http://localhost:8080/">前往小雷妙妙屋</a>
+<!--                        <a href="http://localhost:8080/">前往小雷妙妙屋</a>-->
+                        <a href="/">(。・∀・)ノ</a>
                     </li>
                     <!--                如果session中的user不为空，那么显示“我” th:if="${session.user!=null}"  th:text="${session.user.getName()}"-->
                     <li class="dropdown" th:if="${session.userDTO!=null}">
@@ -62,6 +63,49 @@
             <a href="/usersList" class="list-group-item list-group-item-danger" th:if="((${session.userDTO.getPower() >= 8}) and (${session.LeftFormPower[8]} eq '1'))">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户管理</a>
             <a href="/userTypeList" class="list-group-item list-group-item-danger" th:if="((${session.userDTO.getPower() >= 9}) and (${session.LeftFormPower[9]} eq '1'))">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对象管理</a>
             <a href="/formPowerList" class="list-group-item list-group-item-danger" th:if="((${session.userDTO.getPower() >= 10}) and (${session.LeftFormPower[10]} eq '1'))">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;面板管理</a>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="LeftAndTip">
+    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+        <div class="list-group" th:if="${session.userDTO != null}">
+            <!--学生面板-->
+            <a href="#" class="list-group-item list-group-item-success" th:if="((${session.userDTO.getPower() >= 0}) and (${session.LeftFormPower[0]} eq '1'))"><span class="glyphicon glyphicon-bishop"></span>&nbsp;学生管理面板</a>
+            <a href="/studentScoreList" class="list-group-item list-group-item-success" th:if="((${session.userDTO.getPower() >= 1}) and (${session.LeftFormPower[1]} eq '1'))">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学生成绩信息管理</a>
+            <a href="/studentList" class="list-group-item list-group-item-success" th:if="((${session.userDTO.getPower() >= 2}) and (${session.LeftFormPower[2]} eq '1'))">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学生个人信息管理</a>
+            <!--课程面板-->
+            <a href="#" class="list-group-item list-group-item-warning" th:if="((${session.userDTO.getPower() >= 3}) and (${session.LeftFormPower[3]} eq '1'))"><span class="glyphicon glyphicon-pawn"></span>&nbsp;课程管理面板</a>
+            <a href="/courseList" class="list-group-item list-group-item-warning" th:if="((${session.userDTO.getPower() >= 4}) and (${session.LeftFormPower[4]} eq '1'))">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;课程详细信息管理</a>
+            <!--教师面板-->
+            <a href="#" class="list-group-item list-group-item-info" th:if="((${session.userDTO.getPower() >= 5}) and (${session.LeftFormPower[5]} eq '1'))"><span class="glyphicon glyphicon-queen"></span>&nbsp;教师管理面板</a>
+            <a href="/teacherList" class="list-group-item list-group-item-info" th:if="((${session.userDTO.getPower() >= 6}) and (${session.LeftFormPower[6]} eq '1'))">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;教师个人信息管理</a>
+            <!--用户面板-->
+            <a href="#" class="list-group-item list-group-item-danger" th:if="((${session.userDTO.getPower() >= 7}) and (${session.LeftFormPower[7]} eq '1'))"><span class="glyphicon glyphicon-king"></span>&nbsp;管理员面板</a>
+            <a href="/usersList" class="list-group-item list-group-item-danger" th:if="((${session.userDTO.getPower() >= 8}) and (${session.LeftFormPower[8]} eq '1'))">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户管理</a>
+            <a href="/userTypeList" class="list-group-item list-group-item-danger" th:if="((${session.userDTO.getPower() >= 9}) and (${session.LeftFormPower[9]} eq '1'))">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对象管理</a>
+            <a href="/formPowerList" class="list-group-item list-group-item-danger" th:if="((${session.userDTO.getPower() >= 10}) and (${session.LeftFormPower[10]} eq '1'))">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;面板管理</a>
+        </div>
+        <div>
+            <div class="alert alert-info" role="alert">
+                <div>
+                    <p class="text-primary">80001	胡军</p>
+                    <p class="text-primary">80002	冰心</p>
+                    <p class="text-primary">80003	王天</p>
+                    <p class="text-primary">80004	王一</p>
+                </div>
+                <div>
+                    10001	王天使
+                    10003	小雷
+                    10004	张可爱
+                    10005	王雷鸣
+                    10006	王小天
+                    10007	天天
+                    10008	小李
+                    10002	李很美
+                </div>
+
+            </div>
         </div>
     </div>
 </div>

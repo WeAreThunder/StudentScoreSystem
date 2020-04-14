@@ -24,44 +24,57 @@ public class StudentScoreService {
     @Autowired
     private StudentScoreMapper studentScoreMapper;
 
-    public List<StudentScore> getStudentScoreList(){return studentScoreMapper.getStudentScoreList();}
+    public List<StudentScore> getStudentScoreList() {
+        return studentScoreMapper.getStudentScoreList();
+    }
 
-    public List<StudentScore> getStudentScoreListByName(String sName){return studentScoreMapper.getStudentScoreListByName(sName);}
+    public List<StudentScore> getStudentScoreListByName(String sName) {
+        return studentScoreMapper.getStudentScoreListByName(sName);
+    }
 
-    public void createStudentScore(StudentScore studentScore){studentScoreMapper.createStudentScore(studentScore);}
+    public void createStudentScore(StudentScore studentScore) {
+        studentScoreMapper.createStudentScore(studentScore);
+    }
 
-    public void updateStudentScoreById(StudentScore studentScore){studentScoreMapper.updateStudentScoreById(studentScore);}
+    public void updateStudentScoreById(StudentScore studentScore) {
+        studentScoreMapper.updateStudentScoreById(studentScore);
+    }
 
-    public void delStudentScoreById(Integer id){studentScoreMapper.delStudentScoreById(id);}
+    public void delStudentScoreById(Integer id) {
+        studentScoreMapper.delStudentScoreById(id);
+    }
 
-    public StudentScore getStudentScoreById(Integer id){return studentScoreMapper.getStudentScoreById(id); }
+    public StudentScore getStudentScoreById(Integer id) {
+        return studentScoreMapper.getStudentScoreById(id);
+    }
 
-    public void addStudentScoreByExcel(MultipartFile file) throws IOException{
+    public void addStudentScoreByExcel(MultipartFile file) throws IOException {
         List<StudentScore> studentScoreList = new ArrayList<>();
         String fileName = file.getOriginalFilename();
-        String suffix = fileName.substring(fileName.lastIndexOf(".")+1);
+        //得到文件后缀名
+        String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
         InputStream ins = file.getInputStream();
         Workbook wb = null;
-        if(suffix.equals("xlsx")){
-
+        if (suffix.equals("xlsx")) {
             wb = new XSSFWorkbook(ins);
-
-        }else{
+        } else {
             wb = new HSSFWorkbook(ins);
         }
+        //得到表格中的第一个sheet
         Sheet sheet = wb.getSheetAt(0);
-        if (sheet != null){
+        if (sheet != null) {
             //从第二行开始
-            for (int line = 1; line <= sheet.getLastRowNum(); line++){
+            for (int line = 1; line <= sheet.getLastRowNum(); line++) {
                 StudentScore studentScore = new StudentScore();
                 Row row = sheet.getRow(line);
-                if(null == row){
+                if (null == row) {
                     continue;
                 }
                 //将所得到的所有数据都转换为String
-                for (int i = 0; i<=7; i++){
+                for (int i = 0; i <= 7; i++) {
                     row.getCell(i).setCellType(CellType.STRING);
                 }
+                //将数据读取后加入对象studentScore
                 Integer id = Integer.valueOf(row.getCell(0).getStringCellValue());
                 String courseNumber = row.getCell(1).getStringCellValue();
                 String courseName = row.getCell(2).getStringCellValue();
@@ -84,15 +97,41 @@ public class StudentScoreService {
                 //在控制台显示得到的每一行数据
                 System.out.println(studentScore.toString());
             }
-            for (StudentScore studentScore:studentScoreList){
+            for (StudentScore studentScore : studentScoreList) {
                 Integer id = studentScore.getId();
-                if (studentScoreMapper.getStudentScoreById(id)==null){
+                //判断从表格中读取的数据是否和数据库中的数据有重复，不重复则插入，重复则更新
+                if (studentScoreMapper.getStudentScoreById(id) == null) {
                     studentScoreMapper.createStudentScore(studentScore);
-                }else {
+                } else {
                     studentScoreMapper.updateStudentScoreById(studentScore);
                 }
             }
         }
 
     }
+
+    public int deleteByPrimaryKey(Integer id) {
+        return studentScoreMapper.deleteByPrimaryKey(id);
+    }
+
+    public int insert(StudentScore record) {
+        return studentScoreMapper.insert(record);
+    }
+
+    public int insertSelective(StudentScore record) {
+        return studentScoreMapper.insertSelective(record);
+    }
+
+    public StudentScore selectByPrimaryKey(Integer id) {
+        return studentScoreMapper.selectByPrimaryKey(id);
+    }
+
+    public int updateByPrimaryKeySelective(StudentScore record) {
+        return studentScoreMapper.updateByPrimaryKeySelective(record);
+    }
+
+    public int updateByPrimaryKey(StudentScore record) {
+        return studentScoreMapper.updateByPrimaryKey(record);
+    }
 }
+

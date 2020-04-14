@@ -15,11 +15,14 @@
 <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
     <div class="container-fluid">
         <form action="/courseUpdate" method="post" style="margin: 10px">
-            <div class="form-group" hidden>
+            <div class="form-group" hidden="hidden">
                 <label for="id">id：</label>
                 <input type="text" class="form-control" id="id" name="id" placeholder="如：60001" th:field="${course.id}">
             </div>
             <div class="form-group">
+                <label>课程编号：<span th:text="${course.courseNumber}"></span></label>
+            </div>
+            <div class="form-group" hidden="hidden">
                 <label for="courseNumber">课程号：</label>
                 <input type="text" class="form-control" id="courseNumber" name="courseNumber" placeholder="如：60001" th:field="${course.courseNumber}">
             </div>

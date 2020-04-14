@@ -22,6 +22,9 @@ public interface CourseMapper {
 
     List<Course> selectAllByCourseNameLike(@Param("likeCourseName")String likeCourseName);
 
+    List<Course> selectByTNumber(@Param("tNumber")String tNumber);
+
+
 
 
 

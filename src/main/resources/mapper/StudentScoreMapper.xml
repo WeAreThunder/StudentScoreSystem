@@ -1,42 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.crud.demo.mapper.CourseMapper">
-  <resultMap id="BaseResultMap" type="com.crud.demo.entity.Course">
+<mapper namespace="com.crud.demo.mapper.StudentScoreMapper">
+  <resultMap id="BaseResultMap" type="com.crud.demo.entity.StudentScore">
     <!--@mbg.generated-->
-    <!--@Table course-->
+    <!--@Table student_score-->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="course_number" jdbcType="VARCHAR" property="courseNumber" />
     <result column="course_name" jdbcType="VARCHAR" property="courseName" />
+    <result column="s_number" jdbcType="VARCHAR" property="sNumber" />
+    <result column="s_name" jdbcType="VARCHAR" property="sName" />
+    <result column="score" jdbcType="INTEGER" property="score" />
     <result column="t_number" jdbcType="VARCHAR" property="tNumber" />
     <result column="t_name" jdbcType="VARCHAR" property="tName" />
-    <result column="class_name" jdbcType="VARCHAR" property="className" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, course_number, course_name, t_number, t_name, class_name
+    id, course_number, course_name, s_number, s_name, score, t_number, t_name
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />
-    from course
+    from student_score
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--@mbg.generated-->
-    delete from course
+    delete from student_score
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.crud.demo.entity.Course" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.crud.demo.entity.StudentScore" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into course (course_number, course_name, t_number, 
-      t_name, class_name)
-    values (#{courseNumber,jdbcType=VARCHAR}, #{courseName,jdbcType=VARCHAR}, #{tNumber,jdbcType=VARCHAR}, 
-      #{tName,jdbcType=VARCHAR}, #{className,jdbcType=VARCHAR})
+    insert into student_score (course_number, course_name, s_number, 
+      s_name, score, t_number, 
+      t_name)
+    values (#{courseNumber,jdbcType=VARCHAR}, #{courseName,jdbcType=VARCHAR}, #{sNumber,jdbcType=VARCHAR}, 
+      #{sName,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, #{tNumber,jdbcType=VARCHAR}, 
+      #{tName,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.crud.demo.entity.Course" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.crud.demo.entity.StudentScore" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into course
+    insert into student_score
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="courseNumber != null">
         course_number,
@@ -44,14 +48,20 @@
       <if test="courseName != null">
         course_name,
       </if>
+      <if test="sNumber != null">
+        s_number,
+      </if>
+      <if test="sName != null">
+        s_name,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
       <if test="tNumber != null">
         t_number,
       </if>
       <if test="tName != null">
         t_name,
-      </if>
-      <if test="className != null">
-        class_name,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -61,20 +71,26 @@
       <if test="courseName != null">
         #{courseName,jdbcType=VARCHAR},
       </if>
+      <if test="sNumber != null">
+        #{sNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sName != null">
+        #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
       <if test="tNumber != null">
         #{tNumber,jdbcType=VARCHAR},
       </if>
       <if test="tName != null">
         #{tName,jdbcType=VARCHAR},
       </if>
-      <if test="className != null">
-        #{className,jdbcType=VARCHAR},
-      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.crud.demo.entity.Course">
+  <update id="updateByPrimaryKeySelective" parameterType="com.crud.demo.entity.StudentScore">
     <!--@mbg.generated-->
-    update course
+    update student_score
     <set>
       <if test="courseNumber != null">
         course_number = #{courseNumber,jdbcType=VARCHAR},
@@ -82,51 +98,58 @@
       <if test="courseName != null">
         course_name = #{courseName,jdbcType=VARCHAR},
       </if>
+      <if test="sNumber != null">
+        s_number = #{sNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sName != null">
+        s_name = #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
       <if test="tNumber != null">
         t_number = #{tNumber,jdbcType=VARCHAR},
       </if>
       <if test="tName != null">
         t_name = #{tName,jdbcType=VARCHAR},
       </if>
-      <if test="className != null">
-        class_name = #{className,jdbcType=VARCHAR},
-      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.crud.demo.entity.Course">
+  <update id="updateByPrimaryKey" parameterType="com.crud.demo.entity.StudentScore">
     <!--@mbg.generated-->
-    update course
+    update student_score
     set course_number = #{courseNumber,jdbcType=VARCHAR},
       course_name = #{courseName,jdbcType=VARCHAR},
+      s_number = #{sNumber,jdbcType=VARCHAR},
+      s_name = #{sName,jdbcType=VARCHAR},
+      score = #{score,jdbcType=INTEGER},
       t_number = #{tNumber,jdbcType=VARCHAR},
-      t_name = #{tName,jdbcType=VARCHAR},
-      class_name = #{className,jdbcType=VARCHAR}
+      t_name = #{tName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-<!--auto generated by MybatisCodeHelper on 2020-03-08-->
-  <select id="selectAll" resultMap="BaseResultMap">
+<!--auto generated by MybatisCodeHelper on 2020-04-14-->
+  <select id="selectBySNumber" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from course
+        from student_score
+        where s_number=#{sNumber,jdbcType=VARCHAR}
     </select>
 
-<!--auto generated by MybatisCodeHelper on 2020-03-08-->
-  <select id="selectAllByCourseNameLike" resultMap="BaseResultMap">
+<!--auto generated by MybatisCodeHelper on 2020-04-14-->
+  <select id="selectByCourseNumber" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
-    from course
-    where course_name like concat('%',#{likeCourseName,jdbcType=VARCHAR},'%')
+    from student_score
+    where course_number=#{courseNumber,jdbcType=VARCHAR}
   </select>
 
 <!--auto generated by MybatisCodeHelper on 2020-04-14-->
   <select id="selectByTNumber" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from course
-        where t_number=#{tNumber,jdbcType=VARCHAR}
-    </select>
-
-
+    select
+    <include refid="Base_Column_List"/>
+    from student_score
+    where t_number=#{tNumber,jdbcType=VARCHAR}
+  </select>
 </mapper>

@@ -16,6 +16,9 @@
     <div class="container-fluid">
         <form action="/studentUpdate" method="post" style="margin: 10px">
             <div class="form-group">
+                <label>学号：<span th:text="${student.SNumber}"></span></label>
+            </div>
+            <div class="form-group" hidden="hidden">
                 <label for="sNumber">学号：</label>
                 <input type="text" class="form-control" id="sNumber" name="sNumber" placeholder="如：10001" th:field="${student.SNumber}">
             </div>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crud.demo.mapper.TeacherMapper">
+  <resultMap id="BaseResultMap" type="com.crud.demo.entity.Teacher">
+    <!--@mbg.generated-->
+    <!--@Table teacher-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="t_number" jdbcType="VARCHAR" property="tNumber" />
+    <result column="t_name" jdbcType="VARCHAR" property="tName" />
+    <result column="birthday" jdbcType="VARCHAR" property="birthday" />
+    <result column="job" jdbcType="VARCHAR" property="job" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, t_number, t_name, birthday, job, phone, address
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from teacher
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from teacher
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.crud.demo.entity.Teacher" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into teacher (t_number, t_name, birthday, 
+      job, phone, address
+      )
+    values (#{tNumber,jdbcType=VARCHAR}, #{tName,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, 
+      #{job,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.crud.demo.entity.Teacher" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into teacher
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tNumber != null">
+        t_number,
+      </if>
+      <if test="tName != null">
+        t_name,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="job != null">
+        job,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tNumber != null">
+        #{tNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="tName != null">
+        #{tName,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="job != null">
+        #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.crud.demo.entity.Teacher">
+    <!--@mbg.generated-->
+    update teacher
+    <set>
+      <if test="tNumber != null">
+        t_number = #{tNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="tName != null">
+        t_name = #{tName,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="job != null">
+        job = #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.crud.demo.entity.Teacher">
+    <!--@mbg.generated-->
+    update teacher
+    set t_number = #{tNumber,jdbcType=VARCHAR},
+      t_name = #{tName,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=DATE},
+      job = #{job,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

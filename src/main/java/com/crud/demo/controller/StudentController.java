@@ -50,7 +50,7 @@ public class StudentController {
     //更新后返回
     @PostMapping("/studentUpdate")
     public String studentUpdate(@ModelAttribute Student student){
-        studentService.updateStudentByNumber(student);
+        studentService.updateStudentAndScoreBySNumber(student);
         return "redirect:/studentList";
     }
     //删除学生信息

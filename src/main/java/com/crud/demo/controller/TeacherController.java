@@ -44,7 +44,7 @@ public class TeacherController {
     //更新后返回
     @PostMapping("/teacherUpdate")
     public String teacherUpdate(@ModelAttribute Teacher teacher){
-        teacherService.updateTeacherByNumber(teacher);
+        teacherService.updateTeacherAndCourseAndScoreByNumber(teacher);
         return "redirect:/teacherList";
     }
     //删除教师信息
@@ -53,7 +53,7 @@ public class TeacherController {
         teacherService.delTeacherByNumber(tNumber);
         return "redirect:/teacherList";
     }
-    //查询学生信息
+    //查询教师信息
     @GetMapping("/teacher/searchByName")
     public String getStudentsByNumber(@RequestParam("tName") String tName,
                                       Model model){

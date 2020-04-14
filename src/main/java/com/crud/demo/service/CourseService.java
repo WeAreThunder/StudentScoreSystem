@@ -1,5 +1,8 @@
 package com.crud.demo.service;
 
+import com.crud.demo.entity.StudentScore;
+import com.crud.demo.mapper.StudentScoreMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import com.crud.demo.entity.Course;
@@ -12,6 +15,8 @@ public class CourseService{
 
     @Resource
     private CourseMapper courseMapper;
+    @Autowired
+    private StudentScoreMapper studentScoreMapper;
 
     
     public int deleteByPrimaryKey(Integer id) {
@@ -41,6 +46,17 @@ public class CourseService{
     
     public int updateByPrimaryKey(Course record) {
         return courseMapper.updateByPrimaryKey(record);
+    }
+
+    public void updateCourseAndScoreById(Course course){
+        courseMapper.updateByPrimaryKey(course);
+        Course dbCourse = courseMapper.selectByPrimaryKey(course.getId());
+        List<StudentScore> studentScoreList = studentScoreMapper.selectByCourseNumber(dbCourse.getCourseNumber());
+        //遍历成绩信息，更改课程名
+        for (StudentScore studentScore : studentScoreList) {
+            studentScore.setCourseName(dbCourse.getCourseName());
+            studentScoreMapper.updateByPrimaryKey(studentScore);
+        }
     }
 
     public List<Course> selectAll() {

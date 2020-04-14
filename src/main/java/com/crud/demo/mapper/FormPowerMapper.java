@@ -20,5 +20,4 @@ public interface FormPowerMapper {
     //set是MySQL中的关键字，以后设置的时候尽量避开
     @Update("update form_power set form=#{form},`set`=#{set} where form=#{form}")
     public void updateFormPower(@PathVariable("formPower")FormPower formPower);
-
 }

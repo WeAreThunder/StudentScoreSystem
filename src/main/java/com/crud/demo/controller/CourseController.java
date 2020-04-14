@@ -42,7 +42,7 @@ public class CourseController {
     }
     @PostMapping("courseUpdate")
     public String postCourseUpdate(@ModelAttribute Course course){
-        courseService.updateByPrimaryKey(course);
+        courseService.updateCourseAndScoreById(course);
         return "redirect:/courseList";
     }
     @GetMapping("/courseDel/{id}")

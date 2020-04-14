@@ -1,8 +1,10 @@
 package com.crud.demo.service;
 
 import com.crud.demo.entity.Student;
+import com.crud.demo.entity.StudentScore;
 import com.crud.demo.entity.User;
 import com.crud.demo.mapper.StudentMapper;
+import com.crud.demo.mapper.StudentScoreMapper;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -19,6 +21,8 @@ import java.util.List;
 public class StudentService {
     @Autowired
     private StudentMapper studentMapper;
+    @Autowired
+    private StudentScoreMapper studentScoreMapper;
 
     public List<Student> getStudentList(){return studentMapper.getStudentList();}
 
@@ -26,7 +30,22 @@ public class StudentService {
 
     public void create(Student student){studentMapper.create(student);}
 
-    public void updateStudentByNumber(Student student){ studentMapper.updateByNumber(student); }
+    public void updateStudentByNumber(Student student){
+        studentMapper.updateByNumber(student);
+    }
+    //更新学生时同步更新成绩表
+    public void updateStudentAndScoreBySNumber(Student student){
+        studentMapper.updateByNumber(student);
+        Student studentByNumber = studentMapper.getStudentByNumber(student.getSNumber());
+        //根据学生编号得到成绩表中该学生所有的成绩信息
+        List<StudentScore> studentScoreList = studentScoreMapper.selectBySNumber(studentByNumber.getSNumber());
+        //遍历成绩信息，更改学生名
+        for (StudentScore studentScore : studentScoreList) {
+            studentScore.setSName(studentByNumber.getSName());
+            studentScoreMapper.updateByPrimaryKey(studentScore);
+        }
+    }
+
 
     public void delStudentByNumber(String sNumber){ studentMapper.delByNumber(sNumber); }
 

@@ -1,9 +1,14 @@
 package com.crud.demo.controller;
 
+import com.crud.demo.dto.StudentScoreQueryWrapper;
+import com.crud.demo.entity.Course;
 import com.crud.demo.entity.Student;
 import com.crud.demo.entity.StudentScore;
+import com.crud.demo.entity.Teacher;
+import com.crud.demo.service.CourseService;
 import com.crud.demo.service.StudentScoreService;
 import com.crud.demo.service.StudentService;
+import com.crud.demo.service.TeacherService;
 import org.apache.poi.hssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,15 +26,32 @@ public class StudentScoreController {
     @Autowired
     private StudentScoreService studentScoreService;
 
+    @Autowired
+    private CourseService courseService;
+
+    @Autowired
+    private TeacherService teacherService;
+
+    @Autowired
+    private StudentService studentService;
+
     @GetMapping("/studentScoreList")
     public String StudentScoreList(Model model){
         List<StudentScore> studentScoreList = studentScoreService.getStudentScoreList();
         model.addAttribute("studentsScore",studentScoreList);
+        StudentScoreQueryWrapper studentScoreQueryWrapper = new StudentScoreQueryWrapper();
+        model.addAttribute("studentScoreQueryWrapper",studentScoreQueryWrapper);
         return "studentScoreList";
     }
     //添加学生成绩信息
     @GetMapping("/studentScoreAdd")
     public String getStudentScoreAdd(Model model){
+        List<Course> courseList = courseService.selectAll();
+        List<Teacher> teacherList = teacherService.getTeacherList();
+        List<Student> studentList = studentService.getStudentList();
+        model.addAttribute("courseList",courseList);
+        model.addAttribute("teacherList",teacherList);
+        model.addAttribute("studentList",studentList);
         model.addAttribute("studentScore",new StudentScore());
         return "studentScoreAdd";
     }
@@ -43,6 +65,12 @@ public class StudentScoreController {
     public String getStudentScoreUpdate(@PathVariable("id") Integer id,
                                    Model model){
         StudentScore studentScoreById = studentScoreService.getStudentScoreById(id);
+        List<Course> courseList = courseService.selectAll();
+        List<Teacher> teacherList = teacherService.getTeacherList();
+        List<Student> studentList = studentService.getStudentList();
+        model.addAttribute("teacherList",teacherList);
+        model.addAttribute("studentList",studentList);
+        model.addAttribute("courseList",courseList);
         model.addAttribute("studentScore",studentScoreById);
         return "studentScoreUpdate";
     }
@@ -60,11 +88,14 @@ public class StudentScoreController {
     }
     //查询学生信息
     @GetMapping("/studentScore/searchByName")
-    public String getStudentsByNumber(@RequestParam("sName") String sName,
+    public String getStudentsByNumber(//@RequestParam("sName") String sName,
+                                      @ModelAttribute StudentScoreQueryWrapper studentScoreQueryWrapper,
                                       Model model){
-        List<StudentScore> studentScoreListByName = studentScoreService.getStudentScoreListByName(sName);
-        System.out.println(studentScoreListByName.toString());
-        model.addAttribute("studentsScore",studentScoreListByName);
+//        List<StudentScore> studentScoreListByName = studentScoreService.getStudentScoreListByName(sName);
+        List<StudentScore> studentScoreList = studentScoreService.selectByStudentScoreQueryWrapper(studentScoreQueryWrapper);
+//        System.out.println(studentScoreListByName.toString());
+//        model.addAttribute("studentsScore",studentScoreListByName);
+        model.addAttribute("studentsScore",studentScoreList);
         return "studentScoreList";
     }
     //导入excel表
@@ -120,7 +151,7 @@ public class StudentScoreController {
         //准备将Excel的输出流通过response输出到页面下载
         //八进制输出流
         response.setContentType("application/octet-stream");
-        //这后面可以设置导出Excel的名称，此例中名为student.xls
+        //这后面可以设置导出Excel的名称，此例中名为studentScore.xls
         response.setHeader("Content-disposition", "attachment;filename=studentScore.xls");
         //刷新缓冲
         response.flushBuffer();

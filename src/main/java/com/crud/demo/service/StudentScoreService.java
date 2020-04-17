@@ -1,8 +1,14 @@
 package com.crud.demo.service;
 
+import com.crud.demo.dto.StudentScoreQueryWrapper;
+import com.crud.demo.entity.Course;
 import com.crud.demo.entity.Student;
 import com.crud.demo.entity.StudentScore;
+import com.crud.demo.entity.Teacher;
+import com.crud.demo.mapper.CourseMapper;
+import com.crud.demo.mapper.StudentMapper;
 import com.crud.demo.mapper.StudentScoreMapper;
+import com.crud.demo.mapper.TeacherMapper;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
@@ -24,6 +30,15 @@ public class StudentScoreService {
     @Autowired
     private StudentScoreMapper studentScoreMapper;
 
+    @Autowired
+    private CourseMapper courseMapper;
+
+    @Autowired
+    private TeacherMapper teacherMapper;
+
+    @Autowired
+    private StudentMapper studentMapper;
+
     public List<StudentScore> getStudentScoreList() {
         return studentScoreMapper.getStudentScoreList();
     }
@@ -33,10 +48,22 @@ public class StudentScoreService {
     }
 
     public void createStudentScore(StudentScore studentScore) {
+        List<Course> courseList = courseMapper.selectByCourseNumber(studentScore.getCourseNumber());
+        studentScore.setCourseName(courseList.get(0).getCourseName());
+        Teacher teacherByNumber = teacherMapper.getTeacherByNumber(studentScore.getTNumber());
+        studentScore.setTName(teacherByNumber.getTName());
+        Student studentByNumber = studentMapper.getStudentByNumber(studentScore.getSNumber());
+        studentScore.setSName(studentByNumber.getSName());
         studentScoreMapper.createStudentScore(studentScore);
     }
 
     public void updateStudentScoreById(StudentScore studentScore) {
+        List<Course> courseList = courseMapper.selectByCourseNumber(studentScore.getCourseNumber());
+        studentScore.setCourseName(courseList.get(0).getCourseName());
+        Teacher teacherByNumber = teacherMapper.getTeacherByNumber(studentScore.getTNumber());
+        studentScore.setTName(teacherByNumber.getTName());
+        Student studentByNumber = studentMapper.getStudentByNumber(studentScore.getSNumber());
+        studentScore.setSName(studentByNumber.getSName());
         studentScoreMapper.updateStudentScoreById(studentScore);
     }
 
@@ -132,6 +159,10 @@ public class StudentScoreService {
 
     public int updateByPrimaryKey(StudentScore record) {
         return studentScoreMapper.updateByPrimaryKey(record);
+    }
+
+    public List<StudentScore> selectByStudentScoreQueryWrapper(StudentScoreQueryWrapper studentScoreQueryWrapper) {
+        return studentScoreMapper.selectByStudentScoreQueryWrapper(studentScoreQueryWrapper);
     }
 }
 

@@ -53,22 +53,30 @@
     </div>
 </nav>
 <div class="container-fluid main">
-    <form action="/saveI" method="post" style="margin: 10px">
+    <form action="/saveU" method="post" style="margin: 10px">
         <div class="form-group">
             <label for="name">姓名：</label>
             <input type="text" class="form-control" id="name" name="name" placeholder="请输入姓名" th:field="${user.name}">
         </div>
         <div class="form-group">
-            <label for="gender">性别：</label>
-            <input type="text" class="form-control" id="gender" name="gender" placeholder="请输入性别" th:field="${user.gender}">
+            <label>性别：</label>
+<!--            <input type="text" class="form-control" id="gender" name="gender" placeholder="请输入性别" th:field="${user.gender}">-->
+            <input name="gender" type="radio" value="男" th:field="${user.gender}"/>男
+            <input name="gender" type="radio" value="女" th:field="${user.gender}"/>女
         </div>
         <div class="form-group">
             <label for="age">年龄：</label>
             <input type="text" class="form-control" id="age" name="age" placeholder="请输入年龄" th:field="${user.age}">
         </div>
         <div class="form-group">
-            <label for="address">籍贯：</label>
-            <input type="text" class="form-control" id="address" name="address" placeholder="请输入籍贯" th:field="${user.address}">
+            <label>籍贯：</label>
+<!--            <input type="text" class="form-control" id="address" name="address" placeholder="请输入籍贯" th:field="${user.address}">-->
+            <select class="form-control" th:field="${user.address}">
+                <option value ="volvo">Volvo</option>
+                <option value ="saab">Saab</option>
+                <option value="opel">Opel</option>
+                <option value="audi">Audi</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="qq">QQ：</label>

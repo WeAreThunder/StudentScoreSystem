@@ -1,4 +1,5 @@
 package com.crud.demo.mapper;
+import com.crud.demo.dto.StudentScoreQueryWrapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.crud.demo.entity.StudentScore;import org.apache.ibatis.annotations.Delete;import org.apache.ibatis.annotations.Insert;import org.apache.ibatis.annotations.Select;import org.apache.ibatis.annotations.Update;import org.springframework.web.bind.annotation.PathVariable;import java.util.List;
@@ -22,6 +23,9 @@ public interface StudentScoreMapper {
 
     List<StudentScore> selectByTNumber(@Param("tNumber")String tNumber);
 
+    List<StudentScore> selectByAll(StudentScore studentScore);
+
+	List<StudentScore> selectByStudentScoreQueryWrapper(StudentScoreQueryWrapper studentScoreQueryWrapper);
 
     //查询所有成绩表信息
     @Select("select * from student_score")

@@ -14,21 +14,18 @@
 <div th:insert="TopAndLeft :: left"></div>
 
 <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
-    <form class="form-inline col-lg-5" action="/studentScore/searchByName">
+    <form class="form-inline col-lg-12" action="/studentScore/searchByName">
         <div class="form-group">
-            <label class="sr-only" for="sName">姓名：</label>
-            <input type="text" class="form-control" id="sName" name="sName" placeholder="输入名字">
+            <label class="sr-only">姓名：</label>
+            <input type="text" class="form-control" placeholder="输入名字" th:field="${studentScoreQueryWrapper.name}">
+            <input type="text" class="form-control" placeholder="输入班级名称" th:field="${studentScoreQueryWrapper.courseName}">
+            成绩：<input type="text" class="form-control" placeholder="输入最小成绩" th:field="${studentScoreQueryWrapper.minScore}"> - 到 -
+            <input type="text" class="form-control" placeholder="输入最大成绩" th:field="${studentScoreQueryWrapper.maxScore}">
         </div>
         <button type="submit" class="btn btn-default">开始查找</button>
     </form>
 
-    <div class="col-lg-5" style="float:right;">
-        <form class="form-horizontal" id="form_table" action="/studentScore/upExcel" enctype="multipart/form-data" method="post">
-            <input class="form-input col-lg-7" type="file" id="filename" name="filename"></input>
-            <button type="submit" class="btn btn-primary">导入</button>
-            <a href="/studentScore/putExcel" class="btn btn-primary">导出</a>
-        </form>
-    </div>
+
 
     <hr>
 
@@ -45,8 +42,8 @@
                 <td>教师名</td>
                 <td>选择你的操作</td>
             </tr>
-            <tr th:each="studentScore : ${studentsScore}" align="center">
-                <td th:text="${studentScore.id}"></td>
+            <tr th:each="studentScore,index : ${studentsScore}" align="center">
+                <td th:text="${index.index + 1}"></td>
                 <td th:text="${studentScore.courseNumber}"></td>
                 <td th:text="${studentScore.courseName}"></td>
                 <td th:text="${studentScore.SNumber}"></td>
@@ -65,6 +62,14 @@
                 </td>
             </tr>
         </table>
+    </div>
+
+    <div class="col-lg-4" style="float:left;">
+        <form class="form-horizontal" id="form_table" action="/studentScore/upExcel" enctype="multipart/form-data" method="post">
+            <input class="form-input col-lg-7" type="file" id="filename" name="filename"/>
+            <button type="submit" class="btn btn-primary">导入</button>
+            <a href="/studentScore/putExcel" class="btn btn-primary">导出</a>
+        </form>
     </div>
 </div>
 

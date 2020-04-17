@@ -11,24 +11,33 @@
 </head>
 <body>
 <div th:insert="TopAndLeft :: top"></div>
-<div th:insert="TopAndLeft :: LeftAndTip"></div>
+<div th:insert="TopAndLeft :: left"></div>
 
 <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
     <div class="container-fluid">
         <form action="/studentScoreAdd" method="post" style="margin: 10px">
             <div class="form-group">
-                <label for="courseNumber">课程号：</label>
-                <input type="text" class="form-control" id="courseNumber" name="courseNumber" placeholder="如：60001" th:field="${studentScore.courseNumber}">
+                <label>课程号与课程名：</label>
+                <!--                <input type="text" class="form-control" id="courseNumber" name="courseNumber" placeholder="如：60001" th:field="${studentScore.courseNumber}">-->
+                <select class="form-control" th:field="${studentScore.courseNumber}" id="courseNumber" name="courseNumber">
+                    <div th:each="course : ${courseList}">
+                        <option th:value="${course.getCourseNumber()}"><span th:text="${course.getCourseNumber()}"></span>:<span th:text="${course.getCourseName()}"></span></option>
+                    </div>
+                </select>
             </div>
-            <div class="form-group">
+            <div class="form-group" hidden="hidden">
                 <label for="courseName">课程名：</label>
                 <input type="text" class="form-control" id="courseName" name="courseName" placeholder="请输入课程名" th:field="${studentScore.courseName}">
             </div>
             <div class="form-group">
-                <label for="sNumber">学生号：</label>
-                <input type="text" class="form-control" id="sNumber" name="sNumber" placeholder="如：10001" th:field="${studentScore.SNumber}">
+                <label>学生号与学生名：</label>
+                <select class="form-control" th:field="${studentScore.SNumber}" id="sNumber" name="sNumber">
+                    <div th:each="student : ${studentList}">
+                        <option th:value="${student.getSNumber()}"><span th:text="${student.getSNumber()}"></span> : <span th:text="${student.getSName()}"></span></option>
+                    </div>
+                </select>
             </div>
-            <div class="form-group">
+            <div class="form-group" hidden="hidden">
                 <label for="sName">学生名：</label>
                 <input type="text" class="form-control" id="sName" name="sName" placeholder="请输入学生名" th:field="${studentScore.SName}">
             </div>
@@ -37,10 +46,15 @@
                 <input type="text" class="form-control" id="score" name="score" placeholder="请输入成绩" th:field="${studentScore.score}">
             </div>
             <div class="form-group">
-                <label for="tNumber">教师工号：</label>
-                <input type="text" class="form-control" id="tNumber" name="tNumber" placeholder="如：80001" th:field="${studentScore.TNumber}">
+                <!--                <input type="text" class="form-control" id="tNumber" name="tNumber" placeholder="如：80001" th:field="${studentScore.TNumber}">-->
+                <label>教师工号与教师名：</label>
+                <select class="form-control" th:field="${studentScore.TNumber}" id="tNumber" name="tNumber">
+                    <div th:each="teacher : ${teacherList}">
+                        <option th:value="${teacher.getTNumber()}"><span th:text="${teacher.getTNumber()}"></span>:<span th:text="${teacher.getTName()}"></span></option>
+                    </div>
+                </select>
             </div>
-            <div class="form-group">
+            <div class="form-group" hidden="hidden">
                 <label for="tName">教师名：</label>
                 <input type="text" class="form-control" id="tName" name="tName" placeholder="请输入教师名" th:field="${studentScore.TName}">
             </div>

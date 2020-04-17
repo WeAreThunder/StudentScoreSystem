@@ -24,8 +24,10 @@
                 <input type="text" class="form-control" id="sName" name="sName" placeholder="请输入姓名" th:field="${student.SName}">
             </div>
             <div class="form-group">
-                <label for="sex">性别：</label>
-                <input type="text" class="form-control" id="sex" name="sex" placeholder="请输入性别" th:field="${student.sex}">
+                <label>性别：</label>
+                <!--                <input type="text" class="form-control" id="sex" name="sex" placeholder="请输入性别" th:field="${student.sex}">-->
+                <input name="sex" type="radio" value="男" th:field="${student.sex}"/>男
+                <input name="sex" type="radio" value="女" th:field="${student.sex}"/>女
             </div>
             <div class="form-group">
                 <label for="birthday">出生日期：</label>

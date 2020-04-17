@@ -9,6 +9,8 @@ import com.crud.demo.service.CourseService;
 import com.crud.demo.service.StudentScoreService;
 import com.crud.demo.service.StudentService;
 import com.crud.demo.service.TeacherService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.apache.poi.hssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,13 +38,43 @@ public class StudentScoreController {
     private StudentService studentService;
 
     @GetMapping("/studentScoreList")
-    public String StudentScoreList(Model model){
-        List<StudentScore> studentScoreList = studentScoreService.getStudentScoreList();
-        model.addAttribute("studentsScore",studentScoreList);
+    public String StudentScoreList(Model model,
+                                   @RequestParam(name = "page",defaultValue="1")Integer page,
+                                   @RequestParam(name = "size",defaultValue="10")Integer size,
+                                   @RequestParam(name = "name",defaultValue = "") String name,
+                                   @RequestParam(name = "courseName",defaultValue = "") String courseName,
+                                   @RequestParam(name = "minScore",defaultValue = "0") int minScore,
+                                   @RequestParam(name = "maxScore",defaultValue = "0") int maxScore
+                                   ){
+        //组装查询条件
         StudentScoreQueryWrapper studentScoreQueryWrapper = new StudentScoreQueryWrapper();
-        model.addAttribute("studentScoreQueryWrapper",studentScoreQueryWrapper);
+        studentScoreQueryWrapper.setName(name);
+        studentScoreQueryWrapper.setCourseName(courseName);
+        studentScoreQueryWrapper.setMinScore(minScore);
+        studentScoreQueryWrapper.setMaxScore(maxScore);
+
+
+        Page pageHelper = PageHelper.startPage(page, size);
+        //离pageHelper最近的一条查询语句会被分页
+        List<StudentScore> studentScoreList = studentScoreService.selectByStudentScoreQueryWrapper(studentScoreQueryWrapper);
+        //默认的返回值为Long,不过我们没有这么多数据，int足够了
+        int total = (int)pageHelper.getTotal();
+        int pageCount;
+        if ((total % size)==0){
+            pageCount = total / size;
+        }else {
+            pageCount = total /size + 1;
+        }
+        //向前端传输总页数
+        model.addAttribute("pageCount",pageCount);
+        //向前端传输当前页数
+        model.addAttribute("pageForNow",page);
+        model.addAttribute("studentsScore",studentScoreList);
+
         return "studentScoreList";
     }
+
+
     //添加学生成绩信息
     @GetMapping("/studentScoreAdd")
     public String getStudentScoreAdd(Model model){
@@ -86,7 +118,7 @@ public class StudentScoreController {
         studentScoreService.delStudentScoreById(id);
         return "redirect:/studentScoreList";
     }
-    //查询学生信息
+    //查询学生信息，这里已经用不着了，留着看看自己以前写的代码有多垃圾吧
     @GetMapping("/studentScore/searchByName")
     public String getStudentsByNumber(//@RequestParam("sName") String sName,
                                       @ModelAttribute StudentScoreQueryWrapper studentScoreQueryWrapper,

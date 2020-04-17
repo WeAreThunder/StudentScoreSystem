@@ -164,5 +164,6 @@ public class StudentScoreService {
     public List<StudentScore> selectByStudentScoreQueryWrapper(StudentScoreQueryWrapper studentScoreQueryWrapper) {
         return studentScoreMapper.selectByStudentScoreQueryWrapper(studentScoreQueryWrapper);
     }
+
 }
 

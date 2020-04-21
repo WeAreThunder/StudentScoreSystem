@@ -165,5 +165,12 @@ public class StudentScoreService {
         return studentScoreMapper.selectByStudentScoreQueryWrapper(studentScoreQueryWrapper);
     }
 
+    public List<StudentScore> selectBySNumber(String sNumber) {
+        return studentScoreMapper.selectBySNumber(sNumber);
+    }
+
+    public int deleteBySNumber(String sNumber) {
+        return studentScoreMapper.deleteBySNumber(sNumber);
+    }
 }
 

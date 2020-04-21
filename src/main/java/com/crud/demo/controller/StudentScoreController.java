@@ -69,7 +69,11 @@ public class StudentScoreController {
         model.addAttribute("pageCount",pageCount);
         //向前端传输当前页数
         model.addAttribute("pageForNow",page);
+        //传递学生成绩列表
         model.addAttribute("studentsScore",studentScoreList);
+
+        //传递条件
+        model.addAttribute("studentScoreQueryWrapper",studentScoreQueryWrapper);
 
         return "studentScoreList";
     }
@@ -146,7 +150,7 @@ public class StudentScoreController {
 
         //声明一个工作簿
         HSSFWorkbook workbook = new HSSFWorkbook();
-        //生成一个表格，设置表格名称为"学生表"
+        //生成一个sheet表格，设置表格名称为"学生表"
         HSSFSheet sheet = workbook.createSheet("学生成绩表");
         //创建第一行表头
         HSSFRow headrow = sheet.createRow(0);

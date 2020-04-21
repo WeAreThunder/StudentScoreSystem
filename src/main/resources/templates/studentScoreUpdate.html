@@ -24,7 +24,7 @@
 <!--                <input type="text" class="form-control" id="courseNumber" name="courseNumber" placeholder="如：60001" th:field="${studentScore.courseNumber}">-->
                 <select class="form-control" th:field="${studentScore.courseNumber}" id="courseNumber" name="courseNumber">
                     <div th:each="course : ${courseList}">
-                        <option th:value="${course.getCourseNumber()}"><span th:text="${course.getCourseNumber()}"></span> : <span th:text="${course.getCourseName()}"></span></option>
+                        <option th:value="${course.getCourseNumber()}"><span th:text="${course.getCourseNumber()}"></span> : <span th:text="${course.getCourseName()}"></span> : <span th:text="${course.getTName()}"></span> : <span th:text="${course.getClassName()}"></span></option>
                     </div>
                 </select>
             </div>
@@ -37,7 +37,7 @@
                 <label>学生号与学生名：</label>
                 <select class="form-control" th:field="${studentScore.SNumber}" id="sNumber" name="sNumber">
                     <div th:each="student : ${studentList}">
-                        <option th:value="${student.getSNumber()}"><span th:text="${student.getSNumber()}"></span> : <span th:text="${student.getSName()}"></span></option>
+                        <option th:value="${student.getSNumber()}"><span th:text="${student.getSNumber()}"></span> : <span th:text="${student.getSName()}"></span> : <span th:text="${student.getClassName()}"></span></option>
                     </div>
                 </select>
             </div>

@@ -14,7 +14,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        //设定哪些地址需要被拦截，.excludePathPatterns("/admin/**")加在后面设定哪些地址不需要被拦截
+        //设定哪些地址需要被拦截，.addPathPatterns("/**")设置哪些地址需要被拦截；.excludePathPatterns("/admin/**")加在后面设定哪些地址不需要被拦截
         registry.addInterceptor(sessionInterceptor).addPathPatterns("/**");
     }
 }

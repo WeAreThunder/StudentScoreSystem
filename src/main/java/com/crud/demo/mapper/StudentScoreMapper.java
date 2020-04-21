@@ -20,6 +20,8 @@ public interface StudentScoreMapper {
 
     int updateByPrimaryKey(StudentScore record);
 
+    int deleteBySNumber(@Param("sNumber")String sNumber);
+
     List<StudentScore> selectBySNumber(@Param("sNumber")String sNumber);
 
     List<StudentScore> selectByCourseNumber(@Param("courseNumber")String courseNumber);

@@ -1,6 +1,8 @@
 package com.crud.demo.controller;
 
 import com.crud.demo.entity.Student;
+import com.crud.demo.entity.StudentScore;
+import com.crud.demo.service.StudentScoreService;
 import com.crud.demo.service.StudentService;
 import com.sun.deploy.net.HttpResponse;
 import com.sun.org.apache.xpath.internal.operations.Mod;
@@ -21,6 +23,9 @@ import java.util.List;
 public class StudentController {
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private StudentScoreService studentScoreService;
 
     @GetMapping("/studentList")
     public String studentList(Model model){
@@ -57,6 +62,7 @@ public class StudentController {
     @GetMapping("/studentDel/{sNumber}")
     public String delStudentByNumber(@PathVariable("sNumber") String sNumber){
         studentService.delStudentByNumber(sNumber);
+        studentScoreService.deleteBySNumber(sNumber);
         return "redirect:/studentList";
     }
     //查询学生信息

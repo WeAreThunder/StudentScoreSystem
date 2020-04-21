@@ -21,6 +21,7 @@
         <input type="text" id="name" name="name" class="form-control" placeholder="不要忘掉用户名哦" required autofocus>
         <label for="password" class="sr-only">密码</label><br>
         <input type="password" id="password" name="password" class="form-control" placeholder="注意密码大小写哦" required>
+
         <br>
         <div th:if="${error != null}">
             <div class="alert alert-danger" role="alert" th:text="${error}"></div>
@@ -29,7 +30,5 @@
     </form>
 
 </div>
-
-
 </body>
 </html>

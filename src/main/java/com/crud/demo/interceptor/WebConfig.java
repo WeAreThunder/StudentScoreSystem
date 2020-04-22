@@ -12,9 +12,27 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired
     private SessionInterceptor sessionInterceptor;
 
+    @Autowired
+    private PowerInterceptor powerInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //设定哪些地址需要被拦截，.addPathPatterns("/**")设置哪些地址需要被拦截；.excludePathPatterns("/admin/**")加在后面设定哪些地址不需要被拦截
         registry.addInterceptor(sessionInterceptor).addPathPatterns("/**");
+        //权限拦截
+        powerInterceptor.setPower(1);
+        registry.addInterceptor(powerInterceptor).addPathPatterns("/studentScore**");
+        powerInterceptor.setPower(2);
+        registry.addInterceptor(powerInterceptor).addPathPatterns("/student**");
+        powerInterceptor.setPower(4);
+        registry.addInterceptor(powerInterceptor).addPathPatterns("/course**");
+        powerInterceptor.setPower(6);
+        registry.addInterceptor(powerInterceptor).addPathPatterns("/teacher**");
+        powerInterceptor.setPower(8);
+        registry.addInterceptor(powerInterceptor).addPathPatterns("/users**");
+        powerInterceptor.setPower(9);
+        registry.addInterceptor(powerInterceptor).addPathPatterns("/userType**");
+        powerInterceptor.setPower(10);
+        registry.addInterceptor(powerInterceptor).addPathPatterns("/formPower**");
     }
 }

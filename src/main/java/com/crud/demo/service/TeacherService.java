@@ -59,8 +59,15 @@ public class TeacherService {
 
     }
 
-    public void delTeacherByNumber(String tNumber) {
-        teacherMapper.delTeacherByNumber(tNumber);
+    public int delTeacherByNumber(String tNumber) {
+        Teacher teacher = teacherMapper.getTeacherByNumber(tNumber);
+        List<Course> courseList = courseMapper.selectByTNumber(teacher.getTNumber());
+        if (courseList.size() > 0){
+            return 0;
+        }else {
+            teacherMapper.delTeacherByNumber(tNumber);
+            return 1;
+        }
     }
 
     public int deleteByPrimaryKey(Integer id) {

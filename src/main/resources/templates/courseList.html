@@ -43,7 +43,19 @@
                 <td th:text="${course.TName}"></td>
                 <td th:text="${course.className}"></td>
                 <td>
-                    <a class="btn btn-info btn-xs" th:href="@{'/courseUpdate/course/'+${course.id}}" >修改</a>&nbsp
+                    <a class="btn btn-info btn-xs" th:href="@{'/courseUpdate/course/'+${course.id}}" >修改</a>&nbsp;
+                    <script language="JavaScript">
+                        function delete_confirm(e)
+                        {
+                            //此处提示：不推荐使用的符号，请查阅文档以获得更好的替代方案
+                            //不过目的实现了，没关系啦
+                            if (event.srcElement.outerText === "删除")
+                            {
+                                event.returnValue = confirm("确定删除该课程信息吗？");
+                            }
+                        }
+                        document.onclick = delete_confirm;
+                    </script>
                     <a class="btn btn-danger btn-xs" th:href="@{'/courseDel/'+${course.id}}" >删除</a>
                 </td>
             </tr>
@@ -53,6 +65,12 @@
                 </td>
             </tr>
         </table>
+    </div>
+
+    <div th:if="${courseMessage} != null">
+        <div class="alert alert-danger" role="alert">
+            <span th:text="${courseMessage}"></span>
+        </div>
     </div>
 </div>
 

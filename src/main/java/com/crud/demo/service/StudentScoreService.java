@@ -49,9 +49,10 @@ public class StudentScoreService {
 
     public void createStudentScore(StudentScore studentScore) {
         List<Course> courseList = courseMapper.selectByCourseNumber(studentScore.getCourseNumber());
-        studentScore.setCourseName(courseList.get(0).getCourseName());
-        Teacher teacherByNumber = teacherMapper.getTeacherByNumber(studentScore.getTNumber());
-        studentScore.setTName(teacherByNumber.getTName());
+        Course course = courseList.get(0);
+        studentScore.setCourseName(course.getCourseName());
+        studentScore.setTNumber(course.getTNumber());
+        studentScore.setTName(course.getTName());
         Student studentByNumber = studentMapper.getStudentByNumber(studentScore.getSNumber());
         studentScore.setSName(studentByNumber.getSName());
         studentScoreMapper.createStudentScore(studentScore);
@@ -59,9 +60,10 @@ public class StudentScoreService {
 
     public void updateStudentScoreById(StudentScore studentScore) {
         List<Course> courseList = courseMapper.selectByCourseNumber(studentScore.getCourseNumber());
-        studentScore.setCourseName(courseList.get(0).getCourseName());
-        Teacher teacherByNumber = teacherMapper.getTeacherByNumber(studentScore.getTNumber());
-        studentScore.setTName(teacherByNumber.getTName());
+        Course course = courseList.get(0);
+        studentScore.setCourseName(course.getCourseName());
+        studentScore.setTNumber(course.getTNumber());
+        studentScore.setTName(course.getTName());
         Student studentByNumber = studentMapper.getStudentByNumber(studentScore.getSNumber());
         studentScore.setSName(studentByNumber.getSName());
         studentScoreMapper.updateStudentScoreById(studentScore);

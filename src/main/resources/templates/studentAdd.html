@@ -34,8 +34,13 @@
                 <input type="text" class="form-control" id="birthday" name="birthday" placeholder="格式为1998-08-04" th:field="${student.birthday}">
             </div>
             <div class="form-group">
-                <label for="className">班级名称：</label>
-                <input type="text" class="form-control" id="className" name="className" placeholder="如：G计算机161班" th:field="${student.className}">
+                <label>班级名称：</label>
+<!--                <input type="text" class="form-control" id="className" name="className" placeholder="如：G计算机161班" th:field="${student.className}">-->
+                <select class="form-control" name="className" id="className" th:field="${student.className}">
+                    <div th:each="class : ${classList}">
+                        <option th:value="${class.getClassName()}"><span th:text="${class.getClassName()}"></span></option>
+                    </div>
+                </select>
             </div>
             <div class="form-group">
                 <label for="phone">手机号码：</label>

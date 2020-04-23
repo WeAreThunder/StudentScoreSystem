@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 @Repository//加了这个，service调用mapper时就不报错，不加也没关系
 public interface StudentMapper {
-    @Select("select * from student")
+    @Select("select * from student order by s_number")
     public List<Student> getStudentList();
 
     @Select("select * from student where s_number = #{sNumber}")

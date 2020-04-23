@@ -1,7 +1,9 @@
 package com.crud.demo.controller;
 
+import com.crud.demo.entity.Class;
 import com.crud.demo.entity.Student;
 import com.crud.demo.entity.StudentScore;
+import com.crud.demo.service.ClassService;
 import com.crud.demo.service.StudentScoreService;
 import com.crud.demo.service.StudentService;
 import com.sun.deploy.net.HttpResponse;
@@ -27,15 +29,20 @@ public class StudentController {
     @Autowired
     private StudentScoreService studentScoreService;
 
+    @Autowired
+    private ClassService classService;
+
     @GetMapping("/studentList")
     public String studentList(Model model){
         List<Student> studentList = studentService.getStudentList();
         model.addAttribute("students",studentList);
         return "studentList";
     }
-
+    //插入学生信息
     @GetMapping("/studentAdd")
     public String getStudentAdd(Model model){
+        List<Class> classList = classService.selectAll();
+        model.addAttribute("classList",classList);
         model.addAttribute("student",new Student());
         return "studentAdd";
     }
@@ -48,6 +55,8 @@ public class StudentController {
     @GetMapping("/studentUpdate/student/{sNumber}")
     public String getStudentUpdate(@PathVariable("sNumber") String sNumber,
                                    Model model){
+        List<Class> classList = classService.selectAll();
+        model.addAttribute("classList",classList);
         Student studentByNumber = studentService.getStudentByNumber(sNumber);
         model.addAttribute("student",studentByNumber);
         return "studentUpdate";

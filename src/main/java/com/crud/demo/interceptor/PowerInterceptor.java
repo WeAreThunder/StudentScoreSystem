@@ -10,21 +10,46 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PowerInterceptor implements HandlerInterceptor {
 
-    private int power;
-
     @Autowired
     private UsersService usersService;
 
-    public void setPower(int power){
-        this.power = power;
-    }
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        int power = 0;
+
+        String servletPath = request.getServletPath();
+        String requestURI = request.getRequestURI();
+
+        List<String> urlLevelList = new ArrayList<>();
+
+        urlLevelList.add("学生管理面板");
+        urlLevelList.add("studentScore");
+        urlLevelList.add("student");
+        urlLevelList.add("课程管理面板");
+        urlLevelList.add("course");
+        urlLevelList.add("教师管理面板");
+        urlLevelList.add("teacher");
+        urlLevelList.add("管理员管理面板");
+        urlLevelList.add("users");
+        urlLevelList.add("userType");
+        urlLevelList.add("formPower");
+
+        //判断访问地址需要的权限
+        for (String urlLevel : urlLevelList) {
+            if (requestURI.indexOf(urlLevel) != -1){
+                int index = urlLevelList.indexOf(urlLevel);
+                System.out.println("用户访问地址为："+servletPath+",在urlLevel1中，所需权限等级为"+index);
+                power = index;
+                break;
+            }
+        }
+
         Cookie[] cookies = request.getCookies();
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("name")){
@@ -34,8 +59,9 @@ public class PowerInterceptor implements HandlerInterceptor {
                     if (userDTO.getPower() < power){
                         System.out.println("用户"+userDTO.getUsers().getName()+"权限不足！不许偷看，你的权限不足(╬▔皿▔)凸");
                         return false;
+                    } else {
+                        return true;
                     }
-                    else return true;
                 }
                 break;
             }

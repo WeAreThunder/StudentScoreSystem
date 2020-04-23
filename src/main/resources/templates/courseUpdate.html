@@ -31,16 +31,26 @@
                 <input type="text" class="form-control" id="courseName" name="courseName" placeholder="请输入课程名" th:field="${course.courseName}">
             </div>
             <div class="form-group">
-                <label for="tNumber">教师工号：</label>
-                <input type="text" class="form-control" id="tNumber" name="tNumber" placeholder="如：80001" th:field="${course.TNumber}">
+                <label >选择你的心动教师：</label>
+                <!--                <input type="text" class="form-control" id="tNumber" name="tNumber" placeholder="如：80001" th:field="${course.TNumber}">-->
+                <select class="form-control" name="tNumber" id="tNumber" th:field="${course.TNumber}">
+                    <div th:each="teacher : ${teacherList}">
+                        <option th:value="${teacher.getTNumber()}"><span th:text="${teacher.getTNumber()}"></span> : <span th:text="${teacher.getTName()}"></span></option>
+                    </div>
+                </select>
             </div>
-            <div class="form-group">
+            <div class="form-group" hidden="hidden">
                 <label for="tName">教师名：</label>
                 <input type="text" class="form-control" id="tName" name="tName" placeholder="请输入教师名" th:field="${course.TName}">
             </div>
             <div class="form-group">
-                <label for="className">授课班级：</label>
-                <input type="text" class="form-control" id="className" name="className" placeholder="请输入授课班级，如:G计算机161" th:field="${course.className}">
+                <label >授课班级：</label>
+                <!--                <input type="text" class="form-control" id="className" name="className" placeholder="请输入授课班级，如:G计算机161" th:field="${course.className}">-->
+                <select class="form-control" name="className" id="className" th:field="${course.className}">
+                    <div th:each="class : ${classList}">
+                        <option th:value="${class.getClassName()}"><span th:text="${class.getClassName()}"></span></option>
+                    </div>
+                </select>
             </div>
 
             <div>

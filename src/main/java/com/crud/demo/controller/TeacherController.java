@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -16,9 +18,14 @@ public class TeacherController {
     private TeacherService teacherService;
 
     @GetMapping("/teacherList")
-    public String teacherList(Model model){
+    public String teacherList(Model model,
+                              HttpServletRequest request){
         List<Teacher> teacherList = teacherService.getTeacherList();
+        HttpSession session = request.getSession();
+        String teacherMessage = (String)session.getAttribute("teacherMessage");
+        session.setAttribute("teacherMessage",null);
         model.addAttribute("teachers",teacherList);
+        model.addAttribute("teacherMessage",teacherMessage);
         return "teacherList";
     }
 
@@ -49,8 +56,17 @@ public class TeacherController {
     }
     //删除教师信息
     @GetMapping("/teacherDel/{tNumber}")
-    public String delTeacherByNumber(@PathVariable("tNumber") String tNumber){
-        teacherService.delTeacherByNumber(tNumber);
+    public String delTeacherByNumber(@PathVariable("tNumber") String tNumber,
+                                     HttpServletRequest request){
+        int result = teacherService.delTeacherByNumber(tNumber);
+        String teacherMessage = null;
+        if (result == 1){
+            teacherMessage = "删除成功";
+        }else {
+            teacherMessage = "课程表中有该教师信息，不可删除；请先删除课程表中相关数据再删除教师";
+        }
+        HttpSession session = request.getSession();
+        session.setAttribute("teacherMessage",teacherMessage);
         return "redirect:/teacherList";
     }
     //查询教师信息

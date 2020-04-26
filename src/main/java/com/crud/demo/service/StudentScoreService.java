@@ -1,6 +1,7 @@
 package com.crud.demo.service;
 
 import com.crud.demo.dto.StudentScoreQueryWrapper;
+import com.crud.demo.dto.studentDTO;
 import com.crud.demo.entity.Course;
 import com.crud.demo.entity.Student;
 import com.crud.demo.entity.StudentScore;
@@ -16,8 +17,10 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.xmlbeans.impl.schema.StscChecker;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -38,6 +41,31 @@ public class StudentScoreService {
 
     @Autowired
     private StudentMapper studentMapper;
+
+
+    public List<studentDTO> getStudentDtoList(String className){
+        List<studentDTO> studentDTOList = new ArrayList<>();
+        List<Student> studentList = new ArrayList<>();
+        if (className.equals("all")){
+            studentList = studentMapper.getStudentList();
+        }else {
+            studentList = studentMapper.getStudentListByClassName(className);
+        }
+        List<StudentScore> studentScoreList = studentScoreMapper.getStudentScoreList();
+        for (Student student : studentList) {
+            studentDTO studentDTO = new studentDTO();
+            List<StudentScore> studentDtoScoreList = new ArrayList<>();
+            studentDTO.setStudent(student);
+            for (StudentScore studentScore : studentScoreList) {
+                if (studentScore.getSNumber().equals(student.getSNumber())){
+                    studentDtoScoreList.add(studentScore);
+                }
+            }
+            studentDTO.setStudentScoreList(studentDtoScoreList);
+            studentDTOList.add(studentDTO);
+        }
+        return studentDTOList;
+    }
 
     public List<StudentScore> getStudentScoreList() {
         return studentScoreMapper.getStudentScoreList();

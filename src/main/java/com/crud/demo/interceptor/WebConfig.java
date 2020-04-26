@@ -25,6 +25,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/student**")
                 .addPathPatterns("/course**")
                 .addPathPatterns("/teacher**")
+                .addPathPatterns("/class**")
                 .addPathPatterns("/users**")
                 .addPathPatterns("/userType**")
                 .addPathPatterns("/formPower**")

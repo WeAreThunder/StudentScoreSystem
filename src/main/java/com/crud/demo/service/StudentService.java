@@ -81,14 +81,16 @@ public class StudentService {
                     row.getCell(i).setCellType(CellType.STRING);
                 }
                 //获取该行每一列单元格的内容
-                String number = row.getCell(0).getStringCellValue();
-                String name = row.getCell(1).getStringCellValue();
-                String sex = row.getCell(2).getStringCellValue();
-                String birthday = row.getCell(3).getStringCellValue();
-                String className = row.getCell(4).getStringCellValue();
-                String phone = row.getCell(5).getStringCellValue();
-                String address = row.getCell(6).getStringCellValue();
+                Integer id = Integer.valueOf(row.getCell(0).getStringCellValue());
+                String number = row.getCell(1).getStringCellValue();
+                String name = row.getCell(2).getStringCellValue();
+                String sex = row.getCell(3).getStringCellValue();
+                String birthday = row.getCell(4).getStringCellValue();
+                String className = row.getCell(5).getStringCellValue();
+                String phone = row.getCell(6).getStringCellValue();
+                String address = row.getCell(7).getStringCellValue();
 
+                student.setId(id);
                 student.setSNumber(number);
                 student.setSName(name);
                 student.setSex(sex);

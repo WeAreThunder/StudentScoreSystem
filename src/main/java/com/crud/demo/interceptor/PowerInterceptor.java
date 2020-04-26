@@ -28,13 +28,15 @@ public class PowerInterceptor implements HandlerInterceptor {
 
         List<String> urlLevelList = new ArrayList<>();
 
-        urlLevelList.add("学生管理面板");
+        urlLevelList.add("studentsInfo");
         urlLevelList.add("studentScore");
         urlLevelList.add("student");
         urlLevelList.add("课程管理面板");
         urlLevelList.add("course");
-        urlLevelList.add("教师管理面板");
+        urlLevelList.add("teachersInfo");
         urlLevelList.add("teacher");
+        urlLevelList.add("班级管理面板");
+        urlLevelList.add("classList");
         urlLevelList.add("管理员管理面板");
         urlLevelList.add("users");
         urlLevelList.add("userType");
@@ -44,7 +46,7 @@ public class PowerInterceptor implements HandlerInterceptor {
         for (String urlLevel : urlLevelList) {
             if (requestURI.indexOf(urlLevel) != -1){
                 int index = urlLevelList.indexOf(urlLevel);
-                System.out.println("用户访问地址为："+servletPath+",在urlLevel1中，所需权限等级为"+index);
+                System.out.println("用户访问地址为："+servletPath+",在"+urlLevel+"中，所需权限等级为"+index);
                 power = index;
                 break;
             }

@@ -16,7 +16,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-globe"></span>&nbsp;智能学生成绩管理系统</a>
+                <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-flash"></span>&nbsp;智能学生成绩管理系统 ~~~ Made by Thunder</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -49,20 +49,23 @@
     <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
         <div class="list-group" th:if="${session.userDTO != null}">
             <!--学生面板-->
-            <a href="#" class="list-group-item list-group-item-success" th:if="((${session.userDTO.getPower() >= 0}) and (${session.LeftFormPower[0]} eq '1'))"><span class="glyphicon glyphicon-bishop"></span>&nbsp;学生管理面板</a>
+            <a href="/studentsInfo" class="list-group-item list-group-item-success" th:if="((${session.userDTO.getPower() >= 0}) and (${session.LeftFormPower[0]} eq '1'))"><span class="glyphicon glyphicon-bishop"></span>&nbsp;学生管理面板 <span style="float:right;" class="glyphicon glyphicon-th-large"></span></a>
             <a href="/studentScoreList" class="list-group-item list-group-item-success" th:if="((${session.userDTO.getPower() >= 1}) and (${session.LeftFormPower[1]} eq '1'))">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学生成绩信息管理</a>
             <a href="/studentList" class="list-group-item list-group-item-success" th:if="((${session.userDTO.getPower() >= 2}) and (${session.LeftFormPower[2]} eq '1'))">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学生个人信息管理</a>
             <!--课程面板-->
             <a href="#" class="list-group-item list-group-item-warning" th:if="((${session.userDTO.getPower() >= 3}) and (${session.LeftFormPower[3]} eq '1'))"><span class="glyphicon glyphicon-pawn"></span>&nbsp;课程管理面板</a>
             <a href="/courseList" class="list-group-item list-group-item-warning" th:if="((${session.userDTO.getPower() >= 4}) and (${session.LeftFormPower[4]} eq '1'))">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;课程详细信息管理</a>
             <!--教师面板-->
-            <a href="#" class="list-group-item list-group-item-info" th:if="((${session.userDTO.getPower() >= 5}) and (${session.LeftFormPower[5]} eq '1'))"><span class="glyphicon glyphicon-queen"></span>&nbsp;教师管理面板</a>
+            <a href="/teachersInfo" class="list-group-item list-group-item-info" th:if="((${session.userDTO.getPower() >= 5}) and (${session.LeftFormPower[5]} eq '1'))"><span class="glyphicon glyphicon-queen"></span>&nbsp;教师管理面板 <span style="float:right;" class="glyphicon glyphicon-th-large"></span></a>
             <a href="/teacherList" class="list-group-item list-group-item-info" th:if="((${session.userDTO.getPower() >= 6}) and (${session.LeftFormPower[6]} eq '1'))">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;教师个人信息管理</a>
+            <!--班级面板-->
+            <a href="#"  class="list-group-item list-group-item-success" th:if="((${session.userDTO.getPower() >= 7}) and (${session.LeftFormPower[7]} eq '1'))"><span class="glyphicon glyphicon-knight"></span>&nbsp;班级管理面板</a>
+            <a href="/classList"  class="list-group-item list-group-item-success" th:if="((${session.userDTO.getPower() >= 8}) and (${session.LeftFormPower[8]} eq '1'))">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;班级详细信息管理</a>
             <!--用户面板-->
-            <a href="#" class="list-group-item list-group-item-danger" th:if="((${session.userDTO.getPower() >= 7}) and (${session.LeftFormPower[7]} eq '1'))"><span class="glyphicon glyphicon-king"></span>&nbsp;管理员面板</a>
-            <a href="/usersList" class="list-group-item list-group-item-danger" th:if="((${session.userDTO.getPower() >= 8}) and (${session.LeftFormPower[8]} eq '1'))">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户管理</a>
-            <a href="/userTypeList" class="list-group-item list-group-item-danger" th:if="((${session.userDTO.getPower() >= 9}) and (${session.LeftFormPower[9]} eq '1'))">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对象管理</a>
-            <a href="/formPowerList" class="list-group-item list-group-item-danger" th:if="((${session.userDTO.getPower() >= 10}) and (${session.LeftFormPower[10]} eq '1'))">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;面板管理</a>
+            <a href="#" class="list-group-item list-group-item-danger" th:if="((${session.userDTO.getPower() >= 9}) and (${session.LeftFormPower[9]} eq '1'))"><span class="glyphicon glyphicon-king"></span>&nbsp;管理员面板</a>
+            <a href="/usersList" class="list-group-item list-group-item-danger" th:if="((${session.userDTO.getPower() >= 10}) and (${session.LeftFormPower[10]} eq '1'))">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户管理</a>
+            <a href="/userTypeList" class="list-group-item list-group-item-danger" th:if="((${session.userDTO.getPower() >= 11}) and (${session.LeftFormPower[11]} eq '1'))">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对象管理</a>
+            <a href="/formPowerList" class="list-group-item list-group-item-danger" th:if="((${session.userDTO.getPower() >= 12}) and (${session.LeftFormPower[12]} eq '1'))">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;面板管理</a>
         </div>
     </div>
 </div>

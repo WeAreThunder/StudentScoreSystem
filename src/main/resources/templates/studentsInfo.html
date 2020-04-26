@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>小雷妙妙屋</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body>
+<div th:insert="TopAndLeft :: top"></div>
+<div th:insert="TopAndLeft :: left"></div>
+<div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
+    <div>
+        <ul class="nav nav-pills">
+            <li role="presentation" th:class="${className} eq 'all'? 'active': ''"><a href="/studentsInfo">全部学生</a></li>
+            <li role="presentation" th:each="class : ${classList}" th:class="${className} eq ${class.getClassName()}? 'active': ''"><a th:href="@{'/studentsInfo?className='+${class.getClassName()}}"><span th:text="${class.getClassName()}"></span></a></li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <div th:each="student : ${studentDtoList}">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="panel panel-success">
+                <!-- Default panel contents -->
+                <div class="panel-heading">
+                    <h4>
+                        <span class="glyphicon glyphicon-user"></span>
+                        <span th:text="${student.student.getSName()}"></span>
+                        -
+                        <span th:text="${student.student.getClassName()}"></span>
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <p>出生日期：<span th:text="${student.student.getBirthday()}"></span></p>
+                    <p><span th:text="${student.student.getSex()}"></span>,家住: <span th:text="${student.student.getAddress()}"></span></p>
+                </div>
+
+                <!-- List group -->
+                <ul class="list-group" th:if="${student.getStudentScoreList().size() != 0}" >
+                    <div th:each="studentScore : ${student.getStudentScoreList()}">
+                        <li th:class="${studentScore.getScore()} > 60 ? 'list-group-item text-primary': 'list-group-item text-danger'">
+                                <span th:text="${studentScore.getCourseNumber()}"></span> -
+                                <span th:text="${studentScore.getCourseName()}"></span>
+                                <span class="badge" th:text="${studentScore.getScore()}"></span>
+                        </li>
+                    </div>
+                </ul>
+                <ul class="list-group" th:if="${student.getStudentScoreList().size() == 0}">
+                    <li class="list-group-item">
+                        <span class="text-danger">暂无成绩信息</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

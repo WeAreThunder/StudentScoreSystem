@@ -1,5 +1,7 @@
 package com.crud.demo.service;
 
+import com.crud.demo.dto.CourseDTO;
+import com.crud.demo.dto.TeacherDTO;
 import com.crud.demo.entity.Course;
 import com.crud.demo.entity.StudentScore;
 import com.crud.demo.entity.Teacher;
@@ -9,6 +11,7 @@ import com.crud.demo.mapper.TeacherMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -69,6 +72,42 @@ public class TeacherService {
             return 1;
         }
     }
+
+    public List<TeacherDTO> getTeacherDTOList(){
+        List<TeacherDTO> teacherDTOList = new ArrayList<>();
+
+        List<Teacher> teacherList = teacherMapper.getTeacherList();
+        List<Course> courseList = courseMapper.selectAll();
+        List<StudentScore> studentScoreList = studentScoreMapper.getStudentScoreList();
+
+        for (Teacher teacher: teacherList) {
+            TeacherDTO teacherDTO = new TeacherDTO();
+            List<CourseDTO> courseDTOList = new ArrayList<>();
+            //添加教师到Dto中
+            teacherDTO.setTeacher(teacher);
+            //添加courseDto
+            for (Course course : courseList) {
+                CourseDTO courseDTO = new CourseDTO();
+                int studentCount = 0;
+                if (course.getTNumber().equals(teacher.getTNumber())){
+                    courseDTO.setCourse(course);
+                    //将学习人数添加到dto中
+                    for (StudentScore studentScore : studentScoreList) {
+                        if (studentScore.getCourseNumber().equals(course.getCourseNumber())){
+                            studentCount++;
+                        }
+                    }
+                }
+                courseDTO.setStudentCount(studentCount);
+                if (courseDTO.getCourse() != null)
+                courseDTOList.add(courseDTO);
+            }
+            teacherDTO.setCourseDTOList(courseDTOList);
+            teacherDTOList.add(teacherDTO);
+        }
+        return teacherDTOList;
+    }
+
 
     public int deleteByPrimaryKey(Integer id) {
         return teacherMapper.deleteByPrimaryKey(id);

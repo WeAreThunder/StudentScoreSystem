@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>管理课程信息</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body>
+<div th:insert="TopAndLeft :: top"></div>
+<div th:insert="TopAndLeft :: left"></div>
+
+<div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
+    <hr>
+    <div class="container-fluid">
+        <table class="table table-hover" style="margin: 10px">
+            <tr align="center">
+                <td>ID</td>
+                <td>班级号</td>
+                <td>班级名</td>
+                <td>选择你的操作</td>
+            </tr>
+            <tr th:each="class : ${classList}" align="center">
+                <td th:text="${class.getId()}"></td>
+                <td th:text="${class.getClassNumber()}"></td>
+                <td th:text="${class.getClassName()}"></td>
+                <td>
+                    <a class="btn btn-info btn-xs" th:href="@{'/classList//update/'+${class.getId()}}" >修改</a>&nbsp;
+                    <script language="JavaScript">
+                        function delete_confirm(e)
+                        {
+                            //此处提示：不推荐使用的符号，请查阅文档以获得更好的替代方案
+                            //不过目的实现了，没关系啦
+                            if (event.srcElement.outerText === "删除")
+                            {
+                                event.returnValue = confirm("确定删除该班级信息吗？");
+                            }
+                        }
+                        document.onclick = delete_confirm;
+                    </script>
+                    <a class="btn btn-danger btn-xs" th:href="@{'/classList/delete/'+${class.getId()}}">删除</a>
+                </td>
+            </tr>
+            <tr >
+                <td align="center" colspan="8">
+                    <a th:href="@{'/classList/add'}">添加班级</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div th:if="${classMessage} != null">
+        <div class="alert alert-danger" role="alert">
+            <span th:text="${classMessage}"></span>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -27,6 +27,8 @@ public interface CourseMapper {
 
     List<Course> selectByCourseNumber(@Param("courseNumber")String courseNumber);
 
+    List<Course> selectByClassName(@Param("className")String className);
+
 
 
 }

@@ -24,18 +24,25 @@ public class StudentService {
     @Autowired
     private StudentScoreMapper studentScoreMapper;
 
-    public List<Student> getStudentList(){return studentMapper.getStudentList();}
+    public List<Student> getStudentList() {
+        return studentMapper.getStudentList();
+    }
 
-    public List<Student> getStudentListByName(String sName){return studentMapper.getStudentListByName(sName);}
+    public List<Student> getStudentListByName(String sName) {
+        return studentMapper.getStudentListByName(sName);
+    }
 
-    public void create(Student student){studentMapper.create(student);}
+    public void create(Student student) {
+        studentMapper.create(student);
+    }
 
-    public void updateStudentByNumber(Student student){
+    public void updateStudentByNumber(Student student) {
         studentMapper.updateByNumber(student);
     }
+
     //更新学生时同步更新成绩表
-    public void updateStudentAndScoreBySNumber(Student student){
-        studentMapper.updateByNumber(student);
+    public void updateStudentAndScoreBySNumber(Student student) {
+        studentMapper.updateByPrimaryKeySelective(student);
         Student studentByNumber = studentMapper.getStudentByNumber(student.getSNumber());
         //根据学生编号得到成绩表中该学生所有的成绩信息
         List<StudentScore> studentScoreList = studentScoreMapper.selectBySNumber(studentByNumber.getSNumber());
@@ -47,37 +54,40 @@ public class StudentService {
     }
 
 
-    public void delStudentByNumber(String sNumber){ studentMapper.delByNumber(sNumber); }
+    public void delStudentByNumber(String sNumber) {
+        studentMapper.delByNumber(sNumber);
+    }
 
     public Student getStudentByNumber(String sNumber) {
         Student studentByNumber = studentMapper.getStudentByNumber(sNumber);
         return studentByNumber;
     }
+
     //导入excel表
     public void addStudentByExcel(MultipartFile file) throws IOException {
         List<Student> studentList = new ArrayList<>();
         String fileName = file.getOriginalFilename();
-        String suffix = fileName.substring(fileName.lastIndexOf(".")+1);
+        String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
         InputStream ins = file.getInputStream();
         Workbook wb = null;
-        if(suffix.equals("xlsx")){
+        if (suffix.equals("xlsx")) {
 
             wb = new XSSFWorkbook(ins);
 
-        }else{
+        } else {
             wb = new HSSFWorkbook(ins);
         }
         Sheet sheet = wb.getSheetAt(0);
-        if (sheet != null){
+        if (sheet != null) {
             //从第二行开始
-            for (int line = 1; line <= sheet.getLastRowNum(); line++){
+            for (int line = 1; line <= sheet.getLastRowNum(); line++) {
                 Student student = new Student();
                 Row row = sheet.getRow(line);
-                if(null == row){
+                if (null == row) {
                     continue;
                 }
                 //将所得到的所有数据都转换为String
-                for (int i = 0; i<=6; i++){
+                for (int i = 0; i <= 6; i++) {
                     row.getCell(i).setCellType(CellType.STRING);
                 }
                 //获取该行每一列单元格的内容
@@ -103,15 +113,39 @@ public class StudentService {
                 //在控制台显示得到的每一行数据
                 System.out.println(student.toString());
             }
-            for (Student student:studentList){
+            for (Student student : studentList) {
                 String sNumber = student.getSNumber();
-                if (studentMapper.getStudentByNumber(sNumber)==null){
-                    studentMapper.create(student);
-                }else {
-                    studentMapper.updateByNumber(student);
+                if (studentMapper.getStudentByNumber(sNumber) == null) {
+                    studentMapper.insertSelective(student);
+                } else {
+                    studentMapper.updateByPrimaryKeySelective(student);
                 }
             }
         }
     }
 
+    public int deleteByPrimaryKey(Integer id) {
+        return studentMapper.deleteByPrimaryKey(id);
+    }
+
+    public int insert(Student record) {
+        return studentMapper.insert(record);
+    }
+
+    public int insertSelective(Student record) {
+        return studentMapper.insertSelective(record);
+    }
+
+    public Student selectByPrimaryKey(Integer id) {
+        return studentMapper.selectByPrimaryKey(id);
+    }
+
+    public int updateByPrimaryKeySelective(Student record) {
+        return studentMapper.updateByPrimaryKeySelective(record);
+    }
+
+    public int updateByPrimaryKey(Student record) {
+        return studentMapper.updateByPrimaryKey(record);
+    }
 }
+

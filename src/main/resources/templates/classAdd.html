@@ -17,11 +17,11 @@
         <form action="/classList/add/" method="post" style="margin: 10px">
             <div class="form-group">
                 <label for="classNumber">班级号：</label>
-                <input type="text" class="form-control" id="classNumber" name="classNumber" placeholder="如：30001" th:field="${dbClass.classNumber}">
+                <input required type="text" class="form-control" id="classNumber" name="classNumber" placeholder="如：30001" th:field="${dbClass.classNumber}">
             </div>
             <div class="form-group">
                 <label for="className">班级名：</label>
-                <input type="text" class="form-control" id="className" name="className" placeholder="请输入课程名" th:field="${dbClass.className}">
+                <input required type="text" class="form-control" id="className" name="className" placeholder="请输入课程名" th:field="${dbClass.className}">
             </div>
 
             <div>

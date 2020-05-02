@@ -15,8 +15,15 @@
 <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
     <div>
         <ul class="nav nav-pills">
-            <li role="presentation" th:class="${className} eq 'all'? 'active': ''"><a href="/studentsInfo">全部学生</a></li>
-            <li role="presentation" th:each="class : ${classList}" th:class="${className} eq ${class.getClassName()}? 'active': ''"><a th:href="@{'/studentsInfo?className='+${class.getClassName()}}"><span th:text="${class.getClassName()}"></span></a></li>
+            <li role="presentation" th:class="${className} eq 'all'? 'active': ''">
+                <a href="/studentsInfo"><span class="glyphicon glyphicon-th-list"></span>&nbsp;全部学生</a>
+            </li>
+            <li role="presentation" th:each="class : ${classList}" th:class="(${className} eq ${class.getClassName()} )? 'active': ''">
+                <a th:href="@{'/studentsInfo?className='+${class.getClassName()}}">
+                    <span class="glyphicon glyphicon-apple"></span>&nbsp;
+                    <span th:text="${class.getClassName()}"></span>
+                </a>
+            </li>
         </ul>
     </div>
 
@@ -28,23 +35,47 @@
                 <!-- Default panel contents -->
                 <div class="panel-heading">
                     <h4>
-                        <span class="glyphicon glyphicon-user"></span>
-                        <span th:text="${student.student.getSName()}"></span>
-                        -
+                        <span class="glyphicon glyphicon-user"></span>&nbsp;
                         <span th:text="${student.student.getClassName()}"></span>
+                        -
+                        <span th:text="${student.student.getSNumber()}"></span>
                     </h4>
                 </div>
                 <div class="panel-body">
-                    <p>出生日期：<span th:text="${student.student.getBirthday()}"></span></p>
-                    <p><span th:text="${student.student.getSex()}"></span>,家住: <span th:text="${student.student.getAddress()}"></span></p>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object" th:if="${student.student.avatar !=null}" th:src="@{'/upload/'+${student.student.avatar}}"th:alt="${student.student.SName}">
+                                <img class="media-object" th:if="${student.student.avatar ==null}" th:src="@{'/upload/'+'default.jpg'}"th:alt="${student.student.SName}">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">
+                                <strong>
+                                    <span th:text="${student.student.SName}"></span>
+                                </strong>
+                                <span style="float: right">
+                                    <strong>
+                                        <span th:class="text-primary" th:if="${student.student.sex eq '男'}">♂ 男</span>
+                                        <span th:class="text-danger" th:if="${student.student.sex eq '女'}">♀ 女</span>
+                                    </strong>
+                                </span>
+                            </h4>
+                            <br>
+                            <p>出生日期：<span th:text="${student.student.getBirthday()}"></span></p>
+                            <p>联系方式：<span th:text="${student.student.getPhone()}"></span></p>
+                            <p>家住: <span th:text="${student.student.getAddress()}"></span></p>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- List group -->
                 <ul class="list-group" th:if="${student.getStudentScoreList().size() != 0}" >
                     <div th:each="studentScore : ${student.getStudentScoreList()}">
-                        <li th:class="${studentScore.getScore()} > 60 ? 'list-group-item text-primary': 'list-group-item text-danger'">
+                        <li th:class="${studentScore.getScore()} > 60 ? 'list-group-item': 'list-group-item text-danger'">
                                 <span th:text="${studentScore.getCourseNumber()}"></span> -
                                 <span th:text="${studentScore.getCourseName()}"></span>
+                                <span th:if="${studentScore.getScore() < 60}" class="label label-danger">挂科</span>
                                 <span class="badge" th:text="${studentScore.getScore()}"></span>
                         </li>
                     </div>

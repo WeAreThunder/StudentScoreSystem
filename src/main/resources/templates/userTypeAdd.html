@@ -12,7 +12,7 @@
 <body>
 <div th:insert="TopAndLeft :: top"></div>
 <div th:insert="TopAndLeft :: left"></div>
-<div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
+<div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
     <div class="container-fluid">
         <form action="/userTypeAdd" method="post" style="margin: 10px">
             <div class="form-group">
@@ -31,5 +31,34 @@
         </form>
     </div>
 </div>
+
+<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+    <div class="panel panel-primary" style="margin: 10px">
+        <div class="panel-heading">
+            <h3 class="panel-title">权限相关问题</h3>
+        </div>
+        <div class="panel-body">
+            <p>权限等级与可访问的界面对应关系如下：</p>
+            <hr>
+
+            <p>权限等级 >=0 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 学生成绩管理面板</p>
+            <p>权限等级 >=1 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 学生成绩信息管理</p>
+            <p>权限等级 >=2 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 学生个人信息管理</p>
+            <p>权限等级 >=3 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 课程管理面板</p>
+            <p>权限等级 >=4 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 课程详细信息管理</p>
+            <p>权限等级 >=5 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 教师管理面板</p>
+            <p>权限等级 >=6 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 教师个人信息管理</p>
+            <p>权限等级 >=7 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 班级管理面板</p>
+            <p>权限等级 >=8 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 班级详细信息管理</p>
+            <p>权限等级 >=9 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 管理员面板</p>
+            <p>权限等级 >=10 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 用户管理</p>
+            <p>权限等级 >=11 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 对象管理</p>
+            <p>权限等级 >=12 &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp; 面板管理</p>
+            <hr>
+            <p class="text-danger">请在操作数据前先阅读本提示</p>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

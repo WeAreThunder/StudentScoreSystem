@@ -1,9 +1,7 @@
 package com.crud.demo.mapper;
 
-import com.crud.demo.entity.Teacher;import org.apache.ibatis.annotations.Delete;import org.apache.ibatis.annotations.Insert;import org.apache.ibatis.annotations.Select;import org.apache.ibatis.annotations.Update;
-import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.PathVariable;import java.util.List;
-@Repository//加了这个，service调用mapper时就不报错，不加也没关系
+import com.crud.demo.entity.Teacher;import org.apache.ibatis.annotations.*;import org.springframework.web.bind.annotation.PathVariable;import java.util.List;
+
 public interface TeacherMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -16,6 +14,8 @@ public interface TeacherMapper {
     int updateByPrimaryKeySelective(Teacher record);
 
     int updateByPrimaryKey(Teacher record);
+
+    List<Teacher> selectByJob(@Param("job") String job);
 
     @Select("select * from teacher")
     List<Teacher> getTeacherList();

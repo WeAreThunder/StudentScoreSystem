@@ -17,4 +17,6 @@ public class User {
     private String qq;
 
     private String email;
+
+    private String avatar;
 }

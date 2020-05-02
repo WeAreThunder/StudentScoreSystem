@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -18,10 +19,11 @@ public class TeacherInfoController {
     private TeacherService teacherService;
 
     @GetMapping("")
-    public String teachersInfo(Model model){
-        List<TeacherDTO> teacherDTOList = teacherService.getTeacherDTOList();
+    public String teachersInfo(Model model,
+                               @RequestParam(name = "job",defaultValue="all")String job){
+        List<TeacherDTO> teacherDTOList = teacherService.getTeacherDTOListByJob(job);
         model.addAttribute("teacherDTOList",teacherDTOList);
-        System.out.println(teacherDTOList.toString());
+        model.addAttribute("job",job);
         return "teachersInfo";
     }
 }

@@ -1,18 +1,15 @@
 package com.crud.demo.controller;
 
+import com.crud.demo.config.avatarUpload;
 import com.crud.demo.entity.Class;
 import com.crud.demo.entity.Student;
-import com.crud.demo.entity.StudentScore;
 import com.crud.demo.service.ClassService;
 import com.crud.demo.service.StudentScoreService;
 import com.crud.demo.service.StudentService;
-import com.sun.deploy.net.HttpResponse;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.poi.hssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -47,8 +44,20 @@ public class StudentController {
         return "studentAdd";
     }
     @PostMapping("/studentAdd")
-    public String postStudentAdd(@ModelAttribute Student student){
-        studentService.create(student);
+    public String postStudentAdd(@ModelAttribute Student student,
+                                 @RequestParam("file") MultipartFile file) throws IOException {
+
+        avatarUpload avatarUpload = new avatarUpload();
+        String result = avatarUpload.uploadUserAvatar(file);
+        if (result.equals("文件为空")){
+            System.out.println(result);
+        }else if(result.equals("格式不符")){
+            System.out.println(result);
+        }else {
+            student.setAvatar(result);
+        }
+
+        studentService.insertSelective(student);
         return "redirect:/studentList";
     }
     //更新学生信息
@@ -63,7 +72,18 @@ public class StudentController {
     }
     //更新后返回
     @PostMapping("/studentUpdate")
-    public String studentUpdate(@ModelAttribute Student student){
+    public String studentUpdate(@ModelAttribute Student student,
+                                @RequestParam("file") MultipartFile file) throws IOException {
+        avatarUpload avatarUpload = new avatarUpload();
+        String result = avatarUpload.uploadUserAvatar(file);
+        if (result.equals("文件为空")){
+            System.out.println(result);
+        }else if(result.equals("格式不符")){
+            System.out.println(result);
+        }else {
+            student.setAvatar(result);
+        }
+
         studentService.updateStudentAndScoreBySNumber(student);
         return "redirect:/studentList";
     }

@@ -45,7 +45,7 @@ public class TeacherService {
     }
 
     public void updateTeacherAndCourseAndScoreByNumber(Teacher teacher) {
-        teacherMapper.updateTeacherByNumber(teacher);
+        teacherMapper.updateByPrimaryKeySelective(teacher);
         Teacher dbTeacher = teacherMapper.getTeacherByNumber(teacher.getTNumber());
         List<StudentScore> studentScoreList = studentScoreMapper.selectByTNumber(dbTeacher.getTNumber());
         //遍历成绩信息，更改教师名
@@ -65,22 +65,27 @@ public class TeacherService {
     public int delTeacherByNumber(String tNumber) {
         Teacher teacher = teacherMapper.getTeacherByNumber(tNumber);
         List<Course> courseList = courseMapper.selectByTNumber(teacher.getTNumber());
-        if (courseList.size() > 0){
+        if (courseList.size() > 0) {
             return 0;
-        }else {
+        } else {
             teacherMapper.delTeacherByNumber(tNumber);
             return 1;
         }
     }
 
-    public List<TeacherDTO> getTeacherDTOList(){
+    public List<TeacherDTO> getTeacherDTOListByJob(String job) {
         List<TeacherDTO> teacherDTOList = new ArrayList<>();
+        List<Teacher> teacherList = new ArrayList<>();
+        if (job.equals("all")) {
+            teacherList = teacherMapper.getTeacherList();
+        } else {
+            teacherList = teacherMapper.selectByJob(job);
+        }
 
-        List<Teacher> teacherList = teacherMapper.getTeacherList();
         List<Course> courseList = courseMapper.selectAll();
         List<StudentScore> studentScoreList = studentScoreMapper.getStudentScoreList();
 
-        for (Teacher teacher: teacherList) {
+        for (Teacher teacher : teacherList) {
             TeacherDTO teacherDTO = new TeacherDTO();
             List<CourseDTO> courseDTOList = new ArrayList<>();
             //添加教师到Dto中
@@ -89,18 +94,18 @@ public class TeacherService {
             for (Course course : courseList) {
                 CourseDTO courseDTO = new CourseDTO();
                 int studentCount = 0;
-                if (course.getTNumber().equals(teacher.getTNumber())){
+                if (course.getTNumber().equals(teacher.getTNumber())) {
                     courseDTO.setCourse(course);
                     //将学习人数添加到dto中
                     for (StudentScore studentScore : studentScoreList) {
-                        if (studentScore.getCourseNumber().equals(course.getCourseNumber())){
+                        if (studentScore.getCourseNumber().equals(course.getCourseNumber())) {
                             studentCount++;
                         }
                     }
                 }
                 courseDTO.setStudentCount(studentCount);
                 if (courseDTO.getCourse() != null)
-                courseDTOList.add(courseDTO);
+                    courseDTOList.add(courseDTO);
             }
             teacherDTO.setCourseDTOList(courseDTOList);
             teacherDTOList.add(teacherDTO);
@@ -133,4 +138,5 @@ public class TeacherService {
         return teacherMapper.updateByPrimaryKey(record);
     }
 }
+
 

@@ -1,5 +1,6 @@
 package com.crud.demo.controller;
 
+import com.crud.demo.config.avatarUpload;
 import com.crud.demo.entity.Student;
 import com.crud.demo.entity.Teacher;
 import com.crud.demo.service.TeacherService;
@@ -7,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -35,8 +38,19 @@ public class TeacherController {
         return "teacherAdd";
     }
     @PostMapping("/teacherAdd")
-    public String postStudentAdd(@ModelAttribute Teacher teacher){
-        teacherService.createTeacher(teacher);
+    public String postStudentAdd(@ModelAttribute Teacher teacher,
+                                 @RequestParam("file") MultipartFile file) throws IOException {
+        avatarUpload avatarUpload = new avatarUpload();
+        String result = avatarUpload.uploadUserAvatar(file);
+        if (result.equals("文件为空")){
+            System.out.println(result);
+        }else if(result.equals("格式不符")){
+            System.out.println(result);
+        }else {
+            teacher.setAvatar(result);
+        }
+
+        teacherService.insertSelective(teacher);
         return "redirect:/teacherList";
     }
 
@@ -50,7 +64,18 @@ public class TeacherController {
     }
     //更新后返回
     @PostMapping("/teacherUpdate")
-    public String teacherUpdate(@ModelAttribute Teacher teacher){
+    public String teacherUpdate(@ModelAttribute Teacher teacher,
+                                @RequestParam("file") MultipartFile file) throws IOException {
+        avatarUpload avatarUpload = new avatarUpload();
+        String result = avatarUpload.uploadUserAvatar(file);
+        if (result.equals("文件为空")){
+            System.out.println(result);
+        }else if(result.equals("格式不符")){
+            System.out.println(result);
+        }else {
+            teacher.setAvatar(result);
+        }
+
         teacherService.updateTeacherAndCourseAndScoreByNumber(teacher);
         return "redirect:/teacherList";
     }

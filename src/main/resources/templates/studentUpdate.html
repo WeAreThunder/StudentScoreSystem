@@ -14,7 +14,11 @@
 <div th:insert="TopAndLeft :: left"></div>
 <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
     <div class="container-fluid">
-        <form action="/studentUpdate" method="post" style="margin: 10px">
+        <form action="/studentUpdate" enctype="multipart/form-data" method="post" style="margin: 10px">
+            <div class="form-group" hidden="hidden">
+                <label for="id">id：</label>
+                <input type="text" class="form-control" id="id" name="id" placeholder="如：10001" th:field="${student.id}">
+            </div>
             <div class="form-group">
                 <label>学号：<span th:text="${student.SNumber}"></span></label>
             </div>
@@ -53,6 +57,11 @@
                 <label for="address">地址：</label>
                 <input type="text" class="form-control" id="address" name="address" placeholder="请输入地址" th:field="${student.address}">
             </div>
+            <div>
+                <lable>头像上传：</lable>
+                <input class="form-control" placeholder="请选择文件" type="file" name="file"/>
+            </div>
+
             <div>
                 <a>
                     <input class="btn btn-primary" type="submit" value="提交" />

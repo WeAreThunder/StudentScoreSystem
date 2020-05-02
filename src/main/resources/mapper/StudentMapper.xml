@@ -1,58 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.crud.demo.mapper.TeacherMapper">
-  <resultMap id="BaseResultMap" type="com.crud.demo.entity.Teacher">
+<mapper namespace="com.crud.demo.mapper.StudentMapper">
+  <resultMap id="BaseResultMap" type="com.crud.demo.entity.Student">
     <!--@mbg.generated-->
-    <!--@Table teacher-->
+    <!--@Table student-->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="t_number" jdbcType="VARCHAR" property="tNumber" />
-    <result column="t_name" jdbcType="VARCHAR" property="tName" />
+    <result column="s_number" jdbcType="VARCHAR" property="sNumber" />
+    <result column="s_name" jdbcType="VARCHAR" property="sName" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
     <result column="birthday" jdbcType="DATE" property="birthday" />
-    <result column="job" jdbcType="VARCHAR" property="job" />
+    <result column="class_name" jdbcType="VARCHAR" property="className" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="avatar" jdbcType="VARCHAR" property="avatar" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, t_number, t_name, birthday, job, phone, address, avatar
+    id, s_number, s_name, sex, birthday, class_name, phone, address, avatar
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />
-    from teacher
+    from student
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--@mbg.generated-->
-    delete from teacher
+    delete from student
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.crud.demo.entity.Teacher" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.crud.demo.entity.Student" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into teacher (t_number, t_name, birthday, 
-      job, phone, address, 
-      avatar)
-    values (#{tNumber,jdbcType=VARCHAR}, #{tName,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, 
-      #{job,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{avatar,jdbcType=VARCHAR})
+    insert into student (s_number, s_name, sex, 
+      birthday, class_name, phone, 
+      address, avatar)
+    values (#{sNumber,jdbcType=VARCHAR}, #{sName,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=DATE}, #{className,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.crud.demo.entity.Teacher" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.crud.demo.entity.Student" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into teacher
+    insert into student
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="tNumber != null">
-        t_number,
+      <if test="sNumber != null">
+        s_number,
       </if>
-      <if test="tName != null">
-        t_name,
+      <if test="sName != null">
+        s_name,
+      </if>
+      <if test="sex != null">
+        sex,
       </if>
       <if test="birthday != null">
         birthday,
       </if>
-      <if test="job != null">
-        job,
+      <if test="className != null">
+        class_name,
       </if>
       <if test="phone != null">
         phone,
@@ -65,17 +69,20 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="tNumber != null">
-        #{tNumber,jdbcType=VARCHAR},
+      <if test="sNumber != null">
+        #{sNumber,jdbcType=VARCHAR},
       </if>
-      <if test="tName != null">
-        #{tName,jdbcType=VARCHAR},
+      <if test="sName != null">
+        #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
       </if>
       <if test="birthday != null">
         #{birthday,jdbcType=DATE},
       </if>
-      <if test="job != null">
-        #{job,jdbcType=VARCHAR},
+      <if test="className != null">
+        #{className,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
         #{phone,jdbcType=VARCHAR},
@@ -88,21 +95,24 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.crud.demo.entity.Teacher">
+  <update id="updateByPrimaryKeySelective" parameterType="com.crud.demo.entity.Student">
     <!--@mbg.generated-->
-    update teacher
+    update student
     <set>
-      <if test="tNumber != null">
-        t_number = #{tNumber,jdbcType=VARCHAR},
+      <if test="sNumber != null">
+        s_number = #{sNumber,jdbcType=VARCHAR},
       </if>
-      <if test="tName != null">
-        t_name = #{tName,jdbcType=VARCHAR},
+      <if test="sName != null">
+        s_name = #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
       </if>
       <if test="birthday != null">
         birthday = #{birthday,jdbcType=DATE},
       </if>
-      <if test="job != null">
-        job = #{job,jdbcType=VARCHAR},
+      <if test="className != null">
+        class_name = #{className,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
         phone = #{phone,jdbcType=VARCHAR},
@@ -116,24 +126,17 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.crud.demo.entity.Teacher">
+  <update id="updateByPrimaryKey" parameterType="com.crud.demo.entity.Student">
     <!--@mbg.generated-->
-    update teacher
-    set t_number = #{tNumber,jdbcType=VARCHAR},
-      t_name = #{tName,jdbcType=VARCHAR},
+    update student
+    set s_number = #{sNumber,jdbcType=VARCHAR},
+      s_name = #{sName,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
       birthday = #{birthday,jdbcType=DATE},
-      job = #{job,jdbcType=VARCHAR},
+      class_name = #{className,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
       avatar = #{avatar,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-
-<!--auto generated by MybatisCodeHelper on 2020-05-01-->
-  <select id="selectByJob" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from teacher
-        where job=#{job,jdbcType=VARCHAR}
-    </select>
 </mapper>

@@ -53,7 +53,7 @@
     </div>
 </nav>
 <div class="container-fluid main">
-    <form action="/saveI" method="post" style="margin: 10px">
+    <form action="/saveI" method="post" enctype="multipart/form-data" style="margin: 10px">
         <div class="form-group">
             <label for="name">姓名：</label>
             <input type="text" class="form-control" id="name" name="name" placeholder="请输入姓名" th:field="${user.name}">
@@ -78,6 +78,12 @@
             <label for="email">Email：</label>
             <input type="text" class="form-control" id="email" name="email" placeholder="请输入邮箱地址" th:field="${user.email}">
         </div>
+
+        <div>
+            <lable>头像上传：</lable>
+            <input class="form-control" placeholder="请选择文件" type="file" name="file"/>
+        </div>
+
         <div>
             <a th:href="@{/saveI}">
                 <input class="btn btn-primary" type="submit" value="提交" />

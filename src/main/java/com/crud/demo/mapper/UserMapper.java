@@ -1,8 +1,7 @@
 package com.crud.demo.mapper;
-import org.apache.ibatis.annotations.Param;
 
 import com.crud.demo.entity.User;import org.apache.ibatis.annotations.*;import java.util.List;
-@Mapper
+
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -17,8 +16,6 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     List<User> selectAll();
-
-	;
 
     @Select("select * from user")
     List<User> getAllUser();

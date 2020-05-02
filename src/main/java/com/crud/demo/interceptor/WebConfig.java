@@ -3,6 +3,7 @@ package com.crud.demo.interceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
@@ -18,6 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //设定哪些地址需要被拦截，.addPathPatterns("/**")设置哪些地址需要被拦截；.excludePathPatterns("/admin/**")加在后面设定哪些地址不需要被拦截
+        //实现持久化登录
         registry.addInterceptor(sessionInterceptor).addPathPatterns("/**");
         //权限拦截
 
@@ -32,5 +34,10 @@ public class WebConfig implements WebMvcConfigurer {
                 //不拦截下面这两个地址
                 .excludePathPatterns("/")
                 .excludePathPatterns("/login");
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:D:/MyWork/upload/");
     }
 }

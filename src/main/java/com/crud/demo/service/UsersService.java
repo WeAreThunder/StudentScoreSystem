@@ -18,24 +18,65 @@ public class UsersService {
     @Autowired
     private TypeMapper typeMapper;
 
-    public List<Users> getAllUsers(){return usersMapper.getAllUsers();}
+    public List<Users> getAllUsers() {
+        return usersMapper.getAllUsers();
+    }
 
-    public Users getUsers(String name){return usersMapper.getUsersPwdByName(name);}
+    public Users getUsers(String name) {
+        return usersMapper.getUsersPwdByName(name);
+    }
 
-    public List<Users> getUsersListByName(String name){return usersMapper.getUsersListByName(name);}
+    public List<Users> getUsersListByName(String name) {
+        return usersMapper.getUsersListByName(name);
+    }
 
-    public void createUsers(Users users){usersMapper.createUsers(users);};
+    public void createUsers(Users users) {
+        usersMapper.createUsers(users);
+    }
 
-    public void updateUsersByName(Users users){usersMapper.updateUsersByName(users);};
+    ;
 
-    public void delUsersByName(String name){usersMapper.delUsersByName(name);}
+    public void updateUsersByName(Users users) {
+        usersMapper.updateUsersByName(users);
+    }
+
+    ;
+
+    public void delUsersByName(String name) {
+        usersMapper.delUsersByName(name);
+    }
 
     //获取用户权限和用户
-    public UserDTO getUserDTOByName(String name){
+    public UserDTO getUserDTOByName(String name) {
         Users users = usersMapper.getUsersPwdByName(name);
         UserDTO userDTO = typeMapper.getByType(users.getType());
         userDTO.setUsers(users);
         return userDTO;
     }
 
+    public int deleteByPrimaryKey(Integer id) {
+        return usersMapper.deleteByPrimaryKey(id);
+    }
+
+    public int insert(Users record) {
+        return usersMapper.insert(record);
+    }
+
+    public int insertSelective(Users record) {
+        return usersMapper.insertSelective(record);
+    }
+
+    public Users selectByPrimaryKey(Integer id) {
+        return usersMapper.selectByPrimaryKey(id);
+    }
+
+    public int updateByPrimaryKeySelective(Users record) {
+        return usersMapper.updateByPrimaryKeySelective(record);
+    }
+
+    public int updateByPrimaryKey(Users record) {
+        return usersMapper.updateByPrimaryKey(record);
+    }
 }
+
+

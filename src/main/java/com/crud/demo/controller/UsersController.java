@@ -1,7 +1,9 @@
 package com.crud.demo.controller;
 
 import com.crud.demo.entity.Student;
+import com.crud.demo.entity.UserType;
 import com.crud.demo.entity.Users;
+import com.crud.demo.service.UserTypeService;
 import com.crud.demo.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,9 @@ public class UsersController {
     @Autowired
     private UsersService usersService;
 
+    @Autowired
+    private UserTypeService userTypeService;
+
     @GetMapping("/usersList")
     public String usersList(Model model){
         List<Users> usersList = usersService.getAllUsers();
@@ -24,6 +29,9 @@ public class UsersController {
     @GetMapping("/usersAdd")
     public String getUsersAdd(Model model){
         model.addAttribute("users",new Users());
+        //得到对象列表
+        List<UserType> userTypeList = userTypeService.userTypeList();
+        model.addAttribute(userTypeList);
         return "usersAdd";
     }
     @PostMapping("/usersAdd")
@@ -38,6 +46,9 @@ public class UsersController {
                                    Model model){
         Users users = usersService.getUsers(name);
         model.addAttribute("users",users);
+        //得到对象列表
+        List<UserType> userTypeList = userTypeService.userTypeList();
+        model.addAttribute(userTypeList);
         return "usersUpdate";
     }
     //更新后返回

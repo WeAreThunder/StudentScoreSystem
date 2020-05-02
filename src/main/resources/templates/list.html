@@ -64,6 +64,7 @@
             <td>籍贯</td>
             <td>QQ</td>
             <td>邮箱</td>
+            <td>头像</td>
             <td>选择你的操作</td>
         </tr>
         <tr th:each="user,index:${users}" align="center">
@@ -74,6 +75,12 @@
             <td th:text="${user.address}"></td>
             <td th:text="${user.qq}"></td>
             <td th:text="${user.email}"></td>
+            <td th:if="${user.avatar != null}">
+                <img th:src="'/upload/'+${user.avatar}" height="30"/>
+            </td>
+            <td th:if="${user.avatar == null}">
+                <img th:src="@{'/upload/default.jpg'}" height="30"/>
+            </td>
             <td>
                 <a class="btn btn-info btn-sm" href="update.html" th:href="@{'/update/user/'+${user.id}}">修改</a>&nbsp
                 <a class="btn btn-danger btn-sm" href="list.html" th:href="@{/del(id=${user.id})}">删除</a>

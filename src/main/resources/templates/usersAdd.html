@@ -17,15 +17,20 @@
         <form action="/usersAdd" method="post" style="margin: 10px">
             <div class="form-group">
                 <label for="name">用户名：</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="请输入用户名" th:field="${users.name}">
+                <input required type="text" class="form-control" id="name" name="name" placeholder="请输入用户名" th:field="${users.name}">
             </div>
             <div class="form-group">
                 <label for="password">密码：</label>
-                <input type="text" class="form-control" id="password" name="password" placeholder="请输入密码" th:field="${users.password}">
+                <input required type="text" class="form-control" id="password" name="password" placeholder="请输入密码" th:field="${users.password}">
             </div>
             <div class="form-group">
-                <label for="type">用户类型：</label>
-                <input type="text" class="form-control" id="type" name="type" placeholder="如：管理员，教师，教师管理员等" th:field="${users.type}">
+                <label>用户类型：</label>
+<!--                <input type="text" class="form-control" id="type" name="type" placeholder="如：管理员，教师，教师管理员等" th:field="${users.type}">-->
+                <select class="form-control" name="type" id="type" th:field="${users.type}">
+                    <div th:each="userType : ${userTypeList}">
+                        <option th:value="${userType.getType()}"><span th:text="${userType.getType()}"></span> : <span th:text="${userType.getPower()}"></span></option>
+                    </div>
+                </select>
             </div>
             <div>
                 <a>

@@ -18,4 +18,6 @@ public class Teacher {
     private String phone;
 
     private String address;
+
+    private String avatar;
 }

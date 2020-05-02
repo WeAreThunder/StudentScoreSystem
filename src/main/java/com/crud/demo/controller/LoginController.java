@@ -28,7 +28,9 @@ public class LoginController {
         UserDTO userDTOByName = usersService.getUserDTOByName(name);
         if (userDTOByName != null && password.equals(userDTOByName.getUsers().getPassword())){
             //登录成功后添加cookie
-            response.addCookie(new Cookie("name",name));
+            Cookie cookie = new Cookie("name",name);
+            cookie.setMaxAge(60*60*24);//设定cookie寿命为24小时
+            response.addCookie(cookie);
             return "redirect:/";
         }else {
             model.addAttribute("error","用户名或密码错误");

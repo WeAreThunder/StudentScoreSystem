@@ -34,6 +34,7 @@
                 <td>职称</td>
                 <td>电话号码</td>
                 <td>地址</td>
+                <td>头像</td>
                 <td>选择你的操作</td>
             </tr>
             <tr th:each="teacher : ${teachers}" align="center">
@@ -44,6 +45,12 @@
                 <td th:text="${teacher.job}"></td>
                 <td th:text="${teacher.phone}"></td>
                 <td th:text="${teacher.address}"></td>
+                <td th:if="${teacher.avatar != null}">
+                    <img th:src="'/upload/'+${teacher.avatar}" height="30"/>
+                </td>
+                <td th:if="${teacher.avatar == null}">
+                    <img th:src="'/upload/'+'default.jpg'" height="30"/>
+                </td>
                 <td>
                     <a class="btn btn-info btn-xs" th:href="@{'/teacherUpdate/teacher/'+${teacher.TNumber}}" >修改</a>&nbsp;
                     <script language="JavaScript">

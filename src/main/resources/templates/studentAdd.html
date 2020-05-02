@@ -14,14 +14,14 @@
 <div th:insert="TopAndLeft :: left"></div>
 <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
     <div class="container-fluid">
-        <form action="/studentAdd" method="post" style="margin: 10px">
+        <form action="/studentAdd" enctype="multipart/form-data" method="post" style="margin: 10px">
             <div class="form-group">
                 <label for="sNumber">学号：</label>
-                <input type="text" class="form-control" id="sNumber" name="sNumber" placeholder="如：10001" th:field="${student.SNumber}">
+                <input required type="text" class="form-control" id="sNumber" name="sNumber" placeholder="如：10001" th:field="${student.SNumber}">
             </div>
             <div class="form-group">
                 <label for="sName">姓名：</label>
-                <input type="text" class="form-control" id="sName" name="sName" placeholder="请输入姓名" th:field="${student.SName}">
+                <input required type="text" class="form-control" id="sName" name="sName" placeholder="请输入姓名" th:field="${student.SName}">
             </div>
             <div class="form-group">
                 <label>性别：</label>
@@ -31,7 +31,7 @@
             </div>
             <div class="form-group">
                 <label for="birthday">出生日期：</label>
-                <input type="text" class="form-control" id="birthday" name="birthday" placeholder="格式为1998-08-04" th:field="${student.birthday}">
+                <input required type="text" class="form-control" id="birthday" name="birthday" placeholder="格式为1998-08-04" th:field="${student.birthday}">
             </div>
             <div class="form-group">
                 <label>班级名称：</label>
@@ -44,11 +44,15 @@
             </div>
             <div class="form-group">
                 <label for="phone">手机号码：</label>
-                <input type="text" class="form-control" id="phone" name="phone" placeholder="请输入手机号码" th:field="${student.phone}">
+                <input required type="text" class="form-control" id="phone" name="phone" placeholder="请输入手机号码" th:field="${student.phone}">
             </div>
             <div class="form-group">
                 <label for="address">地址：</label>
-                <input type="text" class="form-control" id="address" name="address" placeholder="请输入地址" th:field="${student.address}">
+                <input required type="text" class="form-control" id="address" name="address" placeholder="请输入地址" th:field="${student.address}">
+            </div>
+            <div>
+                <lable>头像上传：</lable>
+                <input class="form-control" placeholder="请选择文件" type="file" name="file"/>
             </div>
             <div>
                 <a>

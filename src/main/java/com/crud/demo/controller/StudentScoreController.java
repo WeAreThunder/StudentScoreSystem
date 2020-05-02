@@ -52,8 +52,7 @@ public class StudentScoreController {
         studentScoreQueryWrapper.setCourseName(courseName);
         studentScoreQueryWrapper.setMinScore(minScore);
         studentScoreQueryWrapper.setMaxScore(maxScore);
-
-
+        //调用pageHelper
         Page pageHelper = PageHelper.startPage(page, size);
         //离pageHelper最近的一条查询语句会被分页
         List<StudentScore> studentScoreList = studentScoreService.selectByStudentScoreQueryWrapper(studentScoreQueryWrapper);
@@ -71,10 +70,8 @@ public class StudentScoreController {
         model.addAttribute("pageForNow",page);
         //传递学生成绩列表
         model.addAttribute("studentsScore",studentScoreList);
-
         //传递条件
         model.addAttribute("studentScoreQueryWrapper",studentScoreQueryWrapper);
-
         return "studentScoreList";
     }
 

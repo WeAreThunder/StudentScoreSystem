@@ -13,7 +13,7 @@
 <div th:insert="TopAndLeft :: top"></div>
 <div th:insert="TopAndLeft :: left"></div>
 
-<div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
+<div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
     <hr>
     <div class="container-fluid">
         <table class="table table-hover" style="margin: 10px">
@@ -55,6 +55,30 @@
     <div th:if="${classMessage} != null">
         <div class="alert alert-danger" role="alert">
             <span th:text="${classMessage}"></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-info">
+            <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <span class="glyphicon glyphicon-info-sign"></span> &nbsp;修改须知
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    删除班级前，请先删除 ： <br>
+                    <hr>
+                    <span class="glyphicon glyphicon-font"></span>&nbsp;、班级下所有的学生 <br>
+                    <span class="glyphicon glyphicon-bold"></span>&nbsp;、与班级相关的所有课程 <br>
+                    <hr>
+                </div>
+            </div>
         </div>
     </div>
 </div>

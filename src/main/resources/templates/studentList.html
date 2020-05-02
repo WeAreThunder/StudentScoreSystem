@@ -43,6 +43,7 @@
                 <td>班级名称</td>
                 <td>手机号码</td>
                 <td>籍贯</td>
+                <td>头像</td>
                 <td>选择你的操作</td>
             </tr>
             <tr th:each="student : ${students}" align="center">
@@ -54,6 +55,12 @@
                 <td th:text="${student.className}"></td>
                 <td th:text="${student.phone}"></td>
                 <td th:text="${student.address}"></td>
+                <td th:if="${student.avatar != null}">
+                    <img th:src="'/upload/'+${student.avatar}" height="30"/>
+                </td>
+                <td th:if="${student.avatar == null}">
+                    <img th:src="'/upload/'+'default.jpg'" height="30"/>
+                </td>
                 <td>
                     <a class="btn btn-info btn-xs" th:href="@{'/studentUpdate/student/'+${student.SNumber}}" >修改</a>&nbsp
 <!--                    <a class="btn btn-danger btn-xs" th:href="@{'/studentDel/'+${student.SNumber}}" >删除</a>-->

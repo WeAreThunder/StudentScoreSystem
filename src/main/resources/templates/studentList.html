@@ -14,17 +14,17 @@
 <div th:insert="TopAndLeft :: left"></div>
 
 <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
-    <form class="form-inline col-lg-5" action="/student/searchByName">
+    <form class="form-inline col-lg-5" action="/studentList" method="get">
         <div class="form-group">
             <label class="sr-only" for="sName">姓名：</label>
-            <input type="text" class="form-control" id="sName" name="sName" placeholder="输入名字">
+            <input type="text" class="form-control" id="sName" name="sName" placeholder="输入名字" th:value="${sName}">
         </div>
         <button type="submit" class="btn btn-default">开始查找</button>
     </form>
 
     <div class="col-lg-5" style="float:right;">
         <form class="form-horizontal" id="form_table" action="/student/upExcel" enctype="multipart/form-data" method="post">
-            <input class="form-input col-lg-7" type="file" name="filename"></input>
+            <input class="form-input col-lg-7" type="file" name="filename"/>
             <button type="submit" class="btn btn-primary">导入</button>
             <a href="/student/putExcel" class="btn btn-primary">导出</a>
         </form>
@@ -56,10 +56,10 @@
                 <td th:text="${student.phone}"></td>
                 <td th:text="${student.address}"></td>
                 <td th:if="${student.avatar != null}">
-                    <img th:src="'/upload/'+${student.avatar}" height="30"/>
+                    <img th:src="'/upload/'+${student.avatar}" height="25"/>
                 </td>
                 <td th:if="${student.avatar == null}">
-                    <img th:src="'/upload/'+'default.jpg'" height="30"/>
+                    <img th:src="'/upload/'+'default.jpg'" height="25"/>
                 </td>
                 <td>
                     <a class="btn btn-info btn-xs" th:href="@{'/studentUpdate/student/'+${student.SNumber}}" >修改</a>&nbsp
@@ -86,6 +86,52 @@
             </tr>
         </table>
     </div>
+
+    <nav class="container-fluid" aria-label="Page navigation" th:if="${pageCount}!= null">
+        <ul class="pagination">
+            <li th:if="${pageForNow} != 1">
+                <a th:href="@{'/studentList/?page='+1+'&size=10'+'&sName='+${sName}}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <li th:if="${pageForNow != 1}">
+                <a th:href="@{'/studentList/?page='+${pageForNow - 1}+'&size=10'+'&sName='+${sName}}" aria-label="Previous">
+                    <span aria-hidden="true">&#139;</span>
+                </a>
+            </li>
+
+            <li th:if="( (${pageForNow +p} >= 1) and (${pageForNow +p} <= ${pageCount}) )" th:each="p : ${#numbers.sequence(-2,2)}" th:class="${p eq 0}? 'active':''">
+                <a th:text="${pageForNow +p}" th:href="@{'/studentList/?page='+${pageForNow +p}+'&size=10'+'&sName='+${sName}}"></a>
+            </li>
+
+            <li th:if="${pageForNow != pageCount}">
+                <a th:href="@{'/studentList/?page='+${pageForNow + 1}+'&size=10'+'&sName='+${sName}}" aria-label="Previous">
+                    <span aria-hidden="true">&#155;</span>
+                </a>
+            </li>
+            <li th:if="${pageForNow} != ${pageCount}">
+                <a th:href="@{'/studentList/?page='+${pageCount}+'&size=10'+'&sName='+${sName}}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+
+        <ul class="pagination" style="float: right">
+            <li>
+                <span>
+                    <span th:text="${total}"></span>条记录
+                </span>
+            </li>
+            <li>
+                <span>
+                    共 <span th:text="${pageCount}"></span> 页
+                </span>
+            </li>
+
+        </ul>
+    </nav>
+
 </div>
 
 </body>

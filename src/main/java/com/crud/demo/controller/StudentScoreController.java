@@ -64,6 +64,8 @@ public class StudentScoreController {
         }else {
             pageCount = total /size + 1;
         }
+        //传输查询总数
+        model.addAttribute("total",total);
         //向前端传输总页数
         model.addAttribute("pageCount",pageCount);
         //向前端传输当前页数

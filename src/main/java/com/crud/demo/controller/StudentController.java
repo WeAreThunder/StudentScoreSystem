@@ -6,6 +6,8 @@ import com.crud.demo.entity.Student;
 import com.crud.demo.service.ClassService;
 import com.crud.demo.service.StudentScoreService;
 import com.crud.demo.service.StudentService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.apache.poi.hssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,8 +32,30 @@ public class StudentController {
     private ClassService classService;
 
     @GetMapping("/studentList")
-    public String studentList(Model model){
-        List<Student> studentList = studentService.getStudentList();
+    public String studentList(Model model,
+                              @RequestParam(name = "page",defaultValue = "1")Integer page,
+                              @RequestParam(name = "size",defaultValue = "10")Integer size,
+                              @RequestParam(name = "sName",defaultValue = "") String sName){
+        //调用pageHelper
+        Page pageHelper = PageHelper.startPage(page, size);
+        List<Student> studentList = studentService.getStudentListBySNameForShow(sName);
+        //默认的返回值为Long,不过我们没有这么多数据，int足够了
+        int total = (int)pageHelper.getTotal();
+        int pageCount;
+        if ((total % size)==0){
+            pageCount = total / size;
+        }else {
+            pageCount = total /size + 1;
+        }
+        //传输查询总数
+        model.addAttribute("total",total);
+        //向前端传输总页数
+        model.addAttribute("pageCount",pageCount);
+        //向前端传输当前页数
+        model.addAttribute("pageForNow",page);
+        //向前端传输学生名条件
+        model.addAttribute("sName",sName);
+        //传输学生列表
         model.addAttribute("students",studentList);
         return "studentList";
     }

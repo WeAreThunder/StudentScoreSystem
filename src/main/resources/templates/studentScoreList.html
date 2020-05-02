@@ -76,6 +76,7 @@
 
     <nav class="container-fluid" aria-label="Page navigation" th:if="${pageCount}!= null">
         <ul class="pagination">
+
             <li th:if="${pageForNow} != 1">
                 <a th:href="@{'/studentScoreList/?page='+1+'&size=10'+'&name='+${studentScoreQueryWrapper.name}+'&courseName='+${studentScoreQueryWrapper.courseName}+'&minScore='+${studentScoreQueryWrapper.minScore}+'&maxScore='+${studentScoreQueryWrapper.maxScore}}" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
@@ -101,6 +102,19 @@
                 <a th:href="@{'/studentScoreList/?page='+${pageCount}+'&size=10'+'&name='+${studentScoreQueryWrapper.name}+'&courseName='+${studentScoreQueryWrapper.courseName}+'&minScore='+${studentScoreQueryWrapper.minScore}+'&maxScore='+${studentScoreQueryWrapper.maxScore}}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
+            </li>
+        </ul>
+
+        <ul class="pagination" style="float: right">
+            <li>
+                <span>
+                    <span th:text="${total}"></span>条记录
+                </span>
+            </li>
+            <li>
+                <span>
+                    共 <span th:text="${pageCount}"></span> 页
+                </span>
             </li>
         </ul>
     </nav>

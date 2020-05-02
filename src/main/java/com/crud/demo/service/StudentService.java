@@ -147,5 +147,15 @@ public class StudentService {
     public int updateByPrimaryKey(Student record) {
         return studentMapper.updateByPrimaryKey(record);
     }
+
+    public List<Student> getStudentListBySNameForShow(String sName){
+        List<Student> studentList = new ArrayList<>();
+        if (sName.equals("")){
+            studentList = studentMapper.getStudentList();
+        }else {
+            studentList = studentMapper.getStudentListByName(sName);
+        }
+        return studentList;
+    }
 }
 

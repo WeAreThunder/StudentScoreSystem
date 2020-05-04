@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/community.css">
     <link href="/js/signin.css" rel="stylesheet">
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="/js/gVerify.js" type="application/javascript"></script>
 </head>
 <body background="/image/bear.jpg">
 
@@ -15,18 +16,52 @@
 <div class="container">
 
     <form class="form-signin" action="/login" method="post">
-        <h2 class="form-signin-heading">智能学生成绩管理系统</h2>
+        <h2 class="form-signin-heading">
+            <strong>
+                智能学生成绩管理系统
+            </strong>
+        </h2>
         <h2 class="form-signin-heading" align="center">(。・∀・)ノ你好</h2>
         <label for="name" class="sr-only">用户名</label><br>
         <input type="text" id="name" name="name" class="form-control" placeholder="不要忘掉用户名哦" required autofocus>
         <label for="password" class="sr-only">密码</label><br>
         <input type="password" id="password" name="password" class="form-control" placeholder="注意密码大小写哦" required>
+        <br>
+
+<!--     验证码-->
+        <div style="width: 100%;height: 50px;">
+            <div id="v_container" style="width: 40%;height: 50px; float: left" ></div>
+            <strong>
+                <div class="text-primary" style="width: 60%;float: right;line-height: 50px;">&nbsp;&nbsp;点击图片即可切换验证码</div>
+            </strong>
+        </div>
+
+        <br>
+        <span>
+            <input class="form-control" type="text" id="code_input" value="" placeholder="请输入验证码"/>
+        </span>
+        <br>
 
         <br>
         <div th:if="${error != null}">
             <div class="alert alert-danger" role="alert" th:text="${error}"></div>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" id="my_button">登录</button>
+
+        <script>
+            var verifyCode = new GVerify("v_container");
+            document.getElementById("my_button").onclick = function(){
+                var res = verifyCode.validate(document.getElementById("code_input").value);
+                if(res){
+                    // alert("验证正确");
+                    return true
+                }else{
+                    alert("验证码错误");
+                    return false
+                }
+            }
+        </script>
+
     </form>
 
 </div>

@@ -28,18 +28,18 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li>
 <!--                        <a href="http://localhost:8080/">前往小雷妙妙屋</a>-->
-                        <a href="/">(。・∀・)ノ 你好呀，用户 ：</a>
+                        <a href="/">(。・∀・)ノ 你好呀 </a>
                     </li>
                     <!--                如果session中的user不为空，那么显示“我” th:if="${session.user!=null}"  th:text="${session.user.getName()}"-->
                     <li class="dropdown" th:if="${session.userDTO!=null}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ><span th:text="${session.userDTO.getUsers().getName()}"></span><span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/logout">退出登录</a></li>
+                            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;退出登录</a></li>
                         </ul>
                     </li>
                     <!--                当session中的user为空时，显示登录键 th:if="${session.user==null}"-->
                     <li>
-                        <a href="/login" th:if="${session.userDTO==null}">登录</a>
+                        <a href="/login" th:if="${session.userDTO==null}"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;登录</a>
                     </li>
 
                 </ul>

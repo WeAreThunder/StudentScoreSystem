@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>小雷妙妙屋</title>
+    <title>学生信息</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
@@ -16,11 +16,11 @@
     <div>
         <ul class="nav nav-pills">
             <li role="presentation" th:class="${className} eq 'all'? 'active': ''">
-                <a href="/studentsInfo"><span class="glyphicon glyphicon-th-list"></span>&nbsp;全部学生</a>
+                <a href="/studentsInfo"><span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;全部学生</a>
             </li>
             <li role="presentation" th:each="class : ${classList}" th:class="(${className} eq ${class.getClassName()} )? 'active': ''">
                 <a th:href="@{'/studentsInfo?className='+${class.getClassName()}}">
-                    <span class="glyphicon glyphicon-apple"></span>&nbsp;
+                    <span class="glyphicon glyphicon-blackboard"></span>&nbsp;
                     <span th:text="${class.getClassName()}"></span>
                 </a>
             </li>

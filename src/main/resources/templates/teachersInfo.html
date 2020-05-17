@@ -18,8 +18,8 @@
         <ul class="nav nav-pills">
             <li role="presentation" th:class="${job} eq 'all'? 'active': ''"><a href="/teachersInfo"><span class="glyphicon glyphicon-th"></span>&nbsp;全部教师</a></li>
             <li role="presentation" th:class="${job eq '讲师'}? 'active': ''"><a th:href="@{'/teachersInfo?job=讲师'}"><span class="glyphicon glyphicon-pawn"></span>&nbsp;讲师</a></li>
-            <li role="presentation" th:class="${job eq '教授'}? 'active': ''"><a th:href="@{'/teachersInfo?job=教授'}"><span class="glyphicon glyphicon-bishop"></span>&nbsp;教授</a></li>
-            <li role="presentation" th:class="${job eq '院士'}? 'active': ''"><a th:href="@{'/teachersInfo?job=院士'}"><span class="glyphicon glyphicon-knight"></span>&nbsp;院士</a></li>
+            <li role="presentation" th:class="${job eq '教授'}? 'active': ''"><a th:href="@{'/teachersInfo?job=教授'}"><span class="glyphicon glyphicon-knight"></span>&nbsp;教授</a></li>
+            <li role="presentation" th:class="${job eq '院士'}? 'active': ''"><a th:href="@{'/teachersInfo?job=院士'}"><span class="glyphicon glyphicon-king"></span>&nbsp;院士</a></li>
         </ul>
     </div>
 

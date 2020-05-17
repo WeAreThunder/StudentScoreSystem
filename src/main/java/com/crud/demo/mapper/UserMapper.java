@@ -17,6 +17,7 @@ public interface UserMapper {
 
     List<User> selectAll();
 
+
     @Select("select * from user")
     List<User> getAllUser();
 

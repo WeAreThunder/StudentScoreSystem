@@ -64,6 +64,17 @@
                 </a>
             </div>
         </form>
+        <script>
+            document.getElementById("btn").onclick = function () {
+                var score = document.getElementById("score").value;
+                if (score >=0 && score<= 100){
+                    return true
+                }else{
+                    alert("成绩只能在0到100之间");
+                    return false
+                }
+            }
+        </script>
     </div>
 </div>
 </body>

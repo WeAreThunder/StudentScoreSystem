@@ -16,12 +16,24 @@
     <div>
         <ul class="nav nav-pills">
             <li role="presentation" th:class="${className} eq 'all'? 'active': ''">
-                <a href="/studentsInfo"><span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;全部学生</a>
+                <a href="/studentsInfo"><span class="glyphicon glyphicon-th-list"></span>
+                    &nbsp;&nbsp;全部学生
+                    <span th:if="${className} eq 'all'">
+                        <span class="label label-success" >
+                            共<span th:text="${studentDtoList.size()}"></span>人
+                        </span>
+                    </span>
+                </a>
             </li>
             <li role="presentation" th:each="class : ${classList}" th:class="(${className} eq ${class.getClassName()} )? 'active': ''">
                 <a th:href="@{'/studentsInfo?className='+${class.getClassName()}}">
                     <span class="glyphicon glyphicon-blackboard"></span>&nbsp;
                     <span th:text="${class.getClassName()}"></span>
+                    <span th:if="${className} eq ${class.getClassName()}" >
+                        <span class="label label-success" >
+                            <span th:text="${studentDtoList.size()}"></span>人
+                        </span>
+                    </span>
                 </a>
             </li>
         </ul>
@@ -64,7 +76,7 @@
                             <br>
                             <p>出生日期：<span th:text="${student.student.getBirthday()}"></span></p>
                             <p>联系方式：<span th:text="${student.student.getPhone()}"></span></p>
-                            <p>家住: <span th:text="${student.student.getAddress()}"></span></p>
+                            <p>家庭住址: <span th:text="${student.student.getAddress()}"></span></p>
                         </div>
                     </div>
                 </div>

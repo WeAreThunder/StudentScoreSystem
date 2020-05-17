@@ -40,6 +40,11 @@
                 <td>教师名</td>
                 <td>选择你的操作</td>
             </tr>
+            <tr th:if="${studentsScore.size()} == 0">
+                <td align="center" colspan="9">
+                    <span>什么都没有 ┑(￣Д ￣)┍</span>
+                </td>
+            </tr>
             <tr th:each="studentScore,index : ${studentsScore}" align="center">
                 <td th:text="${index.index + 1}"></td>
                 <td th:text="${studentScore.courseNumber}"></td>
@@ -74,7 +79,7 @@
         </table>
     </div>
 
-    <nav class="container-fluid" aria-label="Page navigation" th:if="${pageCount}!= null">
+    <nav class="container-fluid" aria-label="Page navigation" th:if="${studentsScore.size()}!= 0">
         <ul class="pagination">
 
             <li th:if="${pageForNow} != 1">

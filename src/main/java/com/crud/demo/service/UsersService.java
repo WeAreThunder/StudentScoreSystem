@@ -49,6 +49,9 @@ public class UsersService {
     //获取用户权限和用户
     public UserDTO getUserDTOByName(String name) {
         Users users = usersMapper.getUsersPwdByName(name);
+        if (users == null){
+            return null;
+        }
         UserDTO userDTO = typeMapper.getByType(users.getType());
         userDTO.setUsers(users);
         return userDTO;

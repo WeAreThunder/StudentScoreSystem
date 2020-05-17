@@ -76,6 +76,7 @@ public class StudentScoreService {
     }
 
     public void createStudentScore(StudentScore studentScore) {
+        //创建学生成绩时，填充课程名，教师号，教师名，学生名
         List<Course> courseList = courseMapper.selectByCourseNumber(studentScore.getCourseNumber());
         Course course = courseList.get(0);
         studentScore.setCourseName(course.getCourseName());
@@ -105,13 +106,20 @@ public class StudentScoreService {
         return studentScoreMapper.getStudentScoreById(id);
     }
 
-    public void addStudentScoreByExcel(MultipartFile file) throws IOException {
+    public boolean addStudentScoreByExcel(MultipartFile file) throws IOException {
         List<StudentScore> studentScoreList = new ArrayList<>();
         String fileName = file.getOriginalFilename();
         //得到文件后缀名
         String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
+        //判断是否为excel文件
+        if (!(suffix.equals("xlsx") || suffix.equals("xls"))){
+            System.out.println("文件格式不符");
+            return false;
+        }
         InputStream ins = file.getInputStream();
         Workbook wb = null;
+//       POI 提供了对2003版本的Excel的支持 ---- HSSFWorkbook
+//　　　　POI 提供了对2007版本以及更高版本的支持 ---- XSSFWorkbook
         if (suffix.equals("xlsx")) {
             wb = new XSSFWorkbook(ins);
         } else {
@@ -164,6 +172,7 @@ public class StudentScoreService {
                 }
             }
         }
+        return true;
 
     }
 

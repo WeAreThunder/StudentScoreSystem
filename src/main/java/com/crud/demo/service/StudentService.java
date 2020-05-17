@@ -64,10 +64,15 @@ public class StudentService {
     }
 
     //导入excel表
-    public void addStudentByExcel(MultipartFile file) throws IOException {
+    public boolean addStudentByExcel(MultipartFile file) throws IOException {
         List<Student> studentList = new ArrayList<>();
         String fileName = file.getOriginalFilename();
         String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
+        //判断是否为excel文件
+        if (!(suffix.equals("xlsx") || suffix.equals("xls"))){
+            System.out.println("文件格式不符");
+            return false;
+        }
         InputStream ins = file.getInputStream();
         Workbook wb = null;
         if (suffix.equals("xlsx")) {
@@ -122,6 +127,7 @@ public class StudentService {
                 }
             }
         }
+        return true;
     }
 
     public int deleteByPrimaryKey(Integer id) {

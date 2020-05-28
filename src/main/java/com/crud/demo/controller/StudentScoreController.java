@@ -145,7 +145,7 @@ public class StudentScoreController {
     public void putStudentExcel(HttpServletResponse response) throws IOException{
         List<StudentScore> studentScoreList = studentScoreService.getStudentScoreList();
         //表头数据
-        String[] header = {"ID","课程号", "课程名", "学号", "学生姓名", "成绩", "教师工号", "教师名"};
+        String[] header = {"ID","课程号", "课程名", "学号", "学生姓名","平时成绩","期中成绩","期末成绩", "成绩", "教师工号", "教师名"};
 
         //声明一个工作簿
         HSSFWorkbook workbook = new HSSFWorkbook();
@@ -166,7 +166,7 @@ public class StudentScoreController {
         int j=1;
         for (StudentScore studentScore : studentScoreList){
             HSSFRow row = sheet.createRow(j);
-            for (int i = 0; i < 8; i++) {
+            for (int i = 0; i < 11; i++) {
                 HSSFCell cell = row.createCell(i);
                 HSSFRichTextString text = null;
                 switch (i){
@@ -175,9 +175,12 @@ public class StudentScoreController {
                     case 2:text = new HSSFRichTextString(String.valueOf(studentScore.getCourseName()));break;
                     case 3:text = new HSSFRichTextString(String.valueOf(studentScore.getSNumber()));break;
                     case 4:text = new HSSFRichTextString(String.valueOf(studentScore.getSName()));break;
-                    case 5:text = new HSSFRichTextString(String.valueOf(studentScore.getScore()));break;
-                    case 6:text = new HSSFRichTextString(String.valueOf(studentScore.getTNumber()));break;
-                    case 7:text = new HSSFRichTextString(String.valueOf(studentScore.getTName()));break;
+                    case 5:text = new HSSFRichTextString(String.valueOf(studentScore.getScoreA()));break;
+                    case 6:text = new HSSFRichTextString(String.valueOf(studentScore.getScoreB()));break;
+                    case 7:text = new HSSFRichTextString(String.valueOf(studentScore.getScoreC()));break;
+                    case 8:text = new HSSFRichTextString(String.valueOf(studentScore.getScore()));break;
+                    case 9:text = new HSSFRichTextString(String.valueOf(studentScore.getTNumber()));break;
+                    case 10:text = new HSSFRichTextString(String.valueOf(studentScore.getTName()));break;
                 }
                 cell.setCellValue(text);
             }

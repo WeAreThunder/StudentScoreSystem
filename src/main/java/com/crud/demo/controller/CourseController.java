@@ -1,11 +1,8 @@
 package com.crud.demo.controller;
 
+import com.crud.demo.entity.*;
 import com.crud.demo.entity.Class;
-import com.crud.demo.entity.Course;
-import com.crud.demo.entity.Teacher;
-import com.crud.demo.service.ClassService;
-import com.crud.demo.service.CourseService;
-import com.crud.demo.service.TeacherService;
+import com.crud.demo.service.*;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -27,6 +25,12 @@ public class CourseController {
 
     @Autowired
     private TeacherService teacherService;
+
+    @Autowired
+    private StudentService studentService;
+
+    @Autowired
+    private StudentScoreService studentScoreService;
 
     @GetMapping("courseList")
     public String courseList(Model model,
@@ -91,6 +95,25 @@ public class CourseController {
         List<Course> courses = courseService.selectAllByCourseNameLike(courseName);
         model.addAttribute("courses",courses);
         return "courseList";
+    }
+
+    @GetMapping("/course/info/{id}")
+    public String showCourseInfo(@PathVariable("id") Integer id,
+                                 Model model){
+        Course course = courseService.selectByPrimaryKey(id);
+        List<StudentScore> studentScoreList = studentScoreService.selectByCourseNumber(course.getCourseNumber());
+        List<Student> studentList = new ArrayList<>();
+        for (StudentScore studentScore :
+                studentScoreList) {
+            Student studentByNumber = studentService.getStudentByNumber(studentScore.getSNumber());
+            studentList.add(studentByNumber);
+        }
+        Teacher teacher = teacherService.getTeacherByNumber(course.getTNumber());
+        model.addAttribute("course",course);
+        model.addAttribute("teacher",teacher);
+        model.addAttribute("studentScoreList",studentScoreList);
+        model.addAttribute("studentList",studentList);
+        return "courseInfo";
     }
 
 

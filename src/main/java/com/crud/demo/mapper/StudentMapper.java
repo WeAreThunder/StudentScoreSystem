@@ -1,4 +1,5 @@
 package com.crud.demo.mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.crud.demo.entity.Student;import org.apache.ibatis.annotations.Delete;import org.apache.ibatis.annotations.Insert;import org.apache.ibatis.annotations.Select;import org.apache.ibatis.annotations.Update;import org.springframework.web.bind.annotation.PathVariable;import java.util.List;
 
@@ -14,6 +15,10 @@ public interface StudentMapper {
     int updateByPrimaryKeySelective(Student record);
 
     int updateByPrimaryKey(Student record);
+
+
+    List<Student> selectByClassName(@Param("className")String className);
+
 
     @Select("select * from student order by s_number")
     List<Student> getStudentList();

@@ -35,6 +35,9 @@
                 <td>课程名</td>
                 <td>学号</td>
                 <td>学生姓名</td>
+                <td>平时成绩 25%</td>
+                <td>期中成绩 25%</td>
+                <td>期末成绩 50%</td>
                 <td>成绩</td>
                 <td>教师工号</td>
                 <td>教师名</td>
@@ -51,7 +54,14 @@
                 <td th:text="${studentScore.courseName}"></td>
                 <td th:text="${studentScore.SNumber}"></td>
                 <td th:text="${studentScore.SName}"></td>
-                <td th:text="${studentScore.score}"></td>
+                <td th:text="${studentScore.scoreA}"></td>
+                <td th:text="${studentScore.scoreB}"></td>
+                <td th:text="${studentScore.scoreC}"></td>
+                <td>
+                    <strong>
+                        <span th:class="${studentScore.score} >= 60 ? 'text-primary':'text-danger'" th:text="${studentScore.score}"></span>
+                    </strong>
+                </td>
                 <td th:text="${studentScore.TNumber}"></td>
                 <td th:text="${studentScore.TName}"></td>
                 <td>
@@ -72,7 +82,7 @@
                 </td>
             </tr>
             <tr >
-                <td align="center" colspan="9">
+                <td align="center" colspan="12">
                     <a th:href="@{/studentScoreAdd}">添加成绩信息</a>
                 </td>
             </tr>

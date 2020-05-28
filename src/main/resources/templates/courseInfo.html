@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>管理课程信息</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body>
+<div th:insert="TopAndLeft :: top"></div>
+<div th:insert="TopAndLeft :: left"></div>
+
+<div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
+    <div class="list-group">
+        <span class="list-group-item list-group-item-warning list-group-item-heading">
+            <h1 class="list-group-item-heading">
+                <span th:text="${course.getCourseName()}"></span>
+            </h1>
+            <p class="list-group-item-text">学无止境</p>
+        </span>
+
+        <span class="list-group-item-heading">
+            <h3>授课教师：</h3>
+        </span>
+
+        <span class="list-group-item list-group-item-info list-group-item-heading">
+            <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object" th:if="${teacher.avatar !=null}" th:src="@{'/upload/'+${teacher.avatar}}"th:alt="${teacher.TName}">
+                                <img class="media-object" th:if="${teacher.avatar ==null}" th:src="@{'/upload/'+'default.jpg'}"th:alt="${teacher.TName}">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">
+                                <strong>
+                                    <span th:text="${teacher.TName}"></span>
+                                </strong>
+                            </h4>
+                            <br>
+                            <p>出生日期：<span th:text="${teacher.getBirthday()}"></span></p>
+                            <p>联系方式：<span th:text="${teacher.getPhone()}"></span></p>
+                            <p>家住: <span th:text="${teacher.getAddress()}"></span></p>
+                        </div>
+                    </div>
+        </span>
+
+        <span class="list-group-item-heading">
+            <h3>学生列表：</h3>
+        </span>
+
+        <span class="col-lg-6 col-md-12 col-sm-12 col-xs-12 list-group-item list-group-item-success list-group-item-heading" th:each="student : ${studentList}">
+            <div class="media">
+                        <div class="media-left">
+                            <span href="#">
+                                <img class="media-object" th:if="${student.avatar !=null}" th:src="@{'/upload/'+${student.avatar}}"th:alt="${student.SName}">
+                                <img class="media-object" th:if="${student.avatar ==null}" th:src="@{'/upload/'+'default.jpg'}"th:alt="${student.SName}">
+                            </span>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading" style="float: right">
+                                <strong>
+                                    &nbsp;-&nbsp;<span th:text="${student.SNumber}"></span> - <span th:text="${student.className}"></span>
+                                </strong>
+                            </h4>
+                            <h4 class="media-heading">
+                                <strong>
+                                    <span th:text="${student.SName}"></span>
+                                </strong>
+                                <span style="float: right">
+                                    <strong>
+                                        <span th:class="text-primary" th:if="${student.sex eq '男'}">♂ 男</span>
+                                        <span th:class="text-danger" th:if="${student.sex eq '女'}">♀ 女</span>
+                                    </strong>
+                                </span>
+                            </h4>
+                            <br>
+                            <p>出生日期：<span th:text="${student.getBirthday()}"></span></p>
+                            <p>联系方式：<span th:text="${student.getPhone()}"></span></p>
+                            <p>家庭住址: <span th:text="${student.getAddress()}"></span></p>
+
+                            <!--                            展示成绩-->
+                            <span th:each="studentScore : ${studentScoreList}">
+                                <span th:if="${student.getSNumber()} eq ${studentScore.getSNumber()}">
+                                    <table class="table" style="text-align: center;">
+                                        <tr>
+                                            <td>平时成绩</td>
+                                            <td>期中成绩</td>
+                                            <td>期末成绩</td>
+                                            <td>总评成绩</td>
+                                            <td style="vertical-align: middle" rowspan="2">
+                                                <a th:href="@{'/studentScoreUpdate/studentScore/'+${studentScore.id}}" class="btn btn-info">
+                                                    <span>修改成绩信息</span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span th:text="${studentScore.scoreA}"></span>
+                                            </td>
+                                            <td>
+                                                <span th:text="${studentScore.scoreB}"></span>
+                                            </td>
+                                            <td>
+                                                <span th:text="${studentScore.scoreC}"></span>
+                                            </td>
+                                            <td>
+                                                <span th:text="${studentScore.score}"></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </span>
+                            </span>
+
+                        </div>
+                    </div>
+        </span>
+    </div>
+</div>
+
+</body>
+</html>

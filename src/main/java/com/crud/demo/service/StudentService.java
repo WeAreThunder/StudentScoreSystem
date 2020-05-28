@@ -40,6 +40,7 @@ public class StudentService {
         studentMapper.updateByNumber(student);
     }
 
+
     //更新学生时同步更新成绩表
     public void updateStudentAndScoreBySNumber(Student student) {
         studentMapper.updateByPrimaryKeySelective(student);

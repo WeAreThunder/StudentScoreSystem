@@ -17,6 +17,7 @@ public interface TeacherMapper {
 
     List<Teacher> selectByJob(@Param("job") String job);
 
+
     @Select("select * from teacher")
     List<Teacher> getTeacherList();
 

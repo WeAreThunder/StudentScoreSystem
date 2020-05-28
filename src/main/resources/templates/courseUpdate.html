@@ -46,11 +46,12 @@
             <div class="form-group">
                 <label >授课班级：</label>
                 <!--                <input type="text" class="form-control" id="className" name="className" placeholder="请输入授课班级，如:G计算机161" th:field="${course.className}">-->
-                <select class="form-control" name="className" id="className" th:field="${course.className}">
-                    <div th:each="class : ${classList}">
-                        <option th:value="${class.getClassName()}"><span th:text="${class.getClassName()}"></span></option>
-                    </div>
-                </select>
+<!--                <select class="form-control" name="className" id="className" th:field="${course.className}">-->
+<!--                    <div th:each="class : ${classList}">-->
+<!--                        <option th:value="${class.getClassName()}"><span th:text="${class.getClassName()}"></span></option>-->
+<!--                    </div>-->
+<!--                </select>-->
+                <span th:text="${course.className}"></span>
             </div>
 
             <div>

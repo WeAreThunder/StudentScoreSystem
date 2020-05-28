@@ -35,6 +35,7 @@ public class avatarUpload {
                     filepath.getParentFile().mkdirs();
                 }
                 // 将上传文件保存到一个目标文件当中
+                // File.separator为文件目录中的分隔符
                 file.transferTo(new File(path + File.separator + filename));
                 return filename;
             }   else {

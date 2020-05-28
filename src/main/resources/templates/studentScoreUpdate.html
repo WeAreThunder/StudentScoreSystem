@@ -46,9 +46,21 @@
                 <input type="text" class="form-control" id="sName" name="sName" placeholder="请输入学生名" th:field="${studentScore.SName}">
             </div>
             <div class="form-group">
-                <label for="score">成绩：</label>
-                <input type="text" class="form-control" id="score" name="score" placeholder="请输入成绩" th:field="${studentScore.score}">
+                <label for="scoreA">平时成绩：</label>
+                <input type="number" class="form-control" id="scoreA" name="scoreA" placeholder="请输入平时成绩" th:field="${studentScore.scoreA}" required>
             </div>
+            <div class="form-group">
+                <label for="scoreB">期中成绩：</label>
+                <input type="number" class="form-control" id="scoreB" name="scoreB" placeholder="请输入期中成绩" th:field="${studentScore.scoreB}" required>
+            </div>
+            <div class="form-group">
+                <label for="scoreA">期末成绩：</label>
+                <input type="number" class="form-control" id="scoreC" name="scoreC" placeholder="请输入期末成绩" th:field="${studentScore.scoreC}" required>
+            </div>
+                        <div class="form-group">
+                            <label>成绩：</label>
+                            <span th:text="${studentScore.score}"></span>
+                        </div>
             <div class="form-group" hidden="hidden">
 <!--                <input type="text" class="form-control" id="tNumber" name="tNumber" placeholder="如：80001" th:field="${studentScore.TNumber}">-->
                 <label>教师工号与教师名：</label>

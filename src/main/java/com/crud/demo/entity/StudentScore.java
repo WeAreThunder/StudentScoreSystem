@@ -17,6 +17,12 @@ public class StudentScore {
 
     private String sName;
 
+    private Integer scoreA;
+
+    private Integer scoreB;
+
+    private Integer scoreC;
+
     private Integer score;
 
     private String tNumber;

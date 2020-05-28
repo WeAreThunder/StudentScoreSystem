@@ -38,7 +38,11 @@
             <tr th:each="course : ${courses}" align="center">
                 <td th:text="${course.id}"></td>
                 <td th:text="${course.courseNumber}"></td>
-                <td th:text="${course.courseName}"></td>
+                <td>
+                    <a th:href="@{'/course/info/'+${course.id}}">
+                        <span th:text="${course.courseName}"></span>
+                    </a>
+                </td>
                 <td th:text="${course.TNumber}"></td>
                 <td th:text="${course.TName}"></td>
                 <td th:text="${course.className}"></td>
@@ -51,7 +55,7 @@
                             //不过目的实现了，没关系啦
                             if (event.srcElement.outerText === "删除")
                             {
-                                event.returnValue = confirm("确定删除该课程信息吗？");
+                                event.returnValue = confirm("删除课程将会删除所有有关该课程的成绩数据，确定删除吗？");
                             }
                         }
                         document.onclick = delete_confirm;

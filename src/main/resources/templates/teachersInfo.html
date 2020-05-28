@@ -40,7 +40,7 @@
                 <div class="panel-body">
                     <div class="media">
                         <div class="media-left">
-                            <a href="#">
+                            <a th:href="@{'/teacherUpdate/teacher/'+${teacher.teacher.TNumber}}">
                                 <img class="media-object" th:if="${teacher.teacher.avatar !=null}" th:src="@{'/upload/'+${teacher.teacher.avatar}}"th:alt="${teacher.teacher.TName}">
                                 <img class="media-object" th:if="${teacher.teacher.avatar ==null}" th:src="@{'/upload/'+'default.jpg'}"th:alt="${teacher.teacher.TName}">
                             </a>
@@ -63,8 +63,11 @@
                 <ul class="list-group" th:if="${teacher.getCourseDTOList().size() != 0}" >
                     <div th:each="courseDTO : ${teacher.getCourseDTOList()}">
                         <li class="list-group-item">
-                            <span th:text="${courseDTO.course.getCourseName()}"></span> -
-                            <span th:text="${courseDTO.course.getClassName()}"></span>
+                            <a th:href="@{'/course/info/'+${courseDTO.course.getId()}}">
+                                <span th:text="${courseDTO.course.getCourseName()}"></span> -
+                                <span th:text="${courseDTO.course.getClassName()}"></span>
+
+                            </a>
                             <span class="badge" th:if="${courseDTO.getStudentCount() > 0}">
                                 <span th:text="${courseDTO.getStudentCount()}"></span>人
                             </span>

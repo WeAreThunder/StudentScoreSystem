@@ -43,12 +43,12 @@ public class StudentScoreService {
     private StudentMapper studentMapper;
 
 
-    public List<studentDTO> getStudentDtoList(String className){
+    public List<studentDTO> getStudentDtoList(String className) {
         List<studentDTO> studentDTOList = new ArrayList<>();
         List<Student> studentList = new ArrayList<>();
-        if (className.equals("all")){
+        if (className.equals("all")) {
             studentList = studentMapper.getStudentList();
-        }else {
+        } else {
             studentList = studentMapper.getStudentListByClassName(className);
         }
         List<StudentScore> studentScoreList = studentScoreMapper.getStudentScoreList();
@@ -57,7 +57,7 @@ public class StudentScoreService {
             List<StudentScore> studentDtoScoreList = new ArrayList<>();
             studentDTO.setStudent(student);
             for (StudentScore studentScore : studentScoreList) {
-                if (studentScore.getSNumber().equals(student.getSNumber())){
+                if (studentScore.getSNumber().equals(student.getSNumber())) {
                     studentDtoScoreList.add(studentScore);
                 }
             }
@@ -84,7 +84,13 @@ public class StudentScoreService {
         studentScore.setTName(course.getTName());
         Student studentByNumber = studentMapper.getStudentByNumber(studentScore.getSNumber());
         studentScore.setSName(studentByNumber.getSName());
-        studentScoreMapper.createStudentScore(studentScore);
+        //根据三个成绩数据，算出总评成绩
+        int scoreA = studentScore.getScoreA();
+        int scoreB = studentScore.getScoreB();
+        int scoreC = studentScore.getScoreC();
+        double score = scoreA * 0.25 + scoreB * 0.25 + scoreC * 0.5;
+        studentScore.setScore((int)score);
+        studentScoreMapper.insertSelective(studentScore);
     }
 
     public void updateStudentScoreById(StudentScore studentScore) {
@@ -95,7 +101,13 @@ public class StudentScoreService {
         studentScore.setTName(course.getTName());
         Student studentByNumber = studentMapper.getStudentByNumber(studentScore.getSNumber());
         studentScore.setSName(studentByNumber.getSName());
-        studentScoreMapper.updateStudentScoreById(studentScore);
+        //根据三个成绩数据，算出总评成绩
+        int scoreA = studentScore.getScoreA();
+        int scoreB = studentScore.getScoreB();
+        int scoreC = studentScore.getScoreC();
+        double score = scoreA * 0.25 + scoreB * 0.25 + scoreC * 0.5;
+        studentScore.setScore((int)score);
+        studentScoreMapper.updateByPrimaryKeySelective(studentScore);
     }
 
     public void delStudentScoreById(Integer id) {
@@ -112,7 +124,7 @@ public class StudentScoreService {
         //得到文件后缀名
         String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
         //判断是否为excel文件
-        if (!(suffix.equals("xlsx") || suffix.equals("xls"))){
+        if (!(suffix.equals("xlsx") || suffix.equals("xls"))) {
             System.out.println("文件格式不符");
             return false;
         }
@@ -145,15 +157,21 @@ public class StudentScoreService {
                 String courseName = row.getCell(2).getStringCellValue();
                 String sNumber = row.getCell(3).getStringCellValue();
                 String sName = row.getCell(4).getStringCellValue();
-                Integer score = Integer.valueOf(row.getCell(5).getStringCellValue());
-                String tNumber = row.getCell(6).getStringCellValue();
-                String tName = row.getCell(7).getStringCellValue();
+                Integer scoreA = Integer.valueOf(row.getCell(5).getStringCellValue());
+                Integer scoreB = Integer.valueOf(row.getCell(6).getStringCellValue());
+                Integer scoreC = Integer.valueOf(row.getCell(7).getStringCellValue());
+                Integer score = Integer.valueOf(row.getCell(9).getStringCellValue());
+                String tNumber = row.getCell(9).getStringCellValue();
+                String tName = row.getCell(10).getStringCellValue();
 
                 studentScore.setId(id);
                 studentScore.setCourseNumber(courseNumber);
                 studentScore.setCourseName(courseName);
                 studentScore.setSNumber(sNumber);
                 studentScore.setSName(sName);
+                studentScore.setScoreA(scoreA);
+                studentScore.setScoreB(scoreB);
+                studentScore.setScoreC(scoreC);
                 studentScore.setScore(score);
                 studentScore.setTNumber(tNumber);
                 studentScore.setTName(tName);
@@ -166,9 +184,11 @@ public class StudentScoreService {
                 Integer id = studentScore.getId();
                 //判断从表格中读取的数据是否和数据库中的数据有重复，不重复则插入，重复则更新
                 if (studentScoreMapper.getStudentScoreById(id) == null) {
-                    studentScoreMapper.createStudentScore(studentScore);
+                    //插入
+                    studentScoreMapper.insertSelective(studentScore);
                 } else {
-                    studentScoreMapper.updateStudentScoreById(studentScore);
+                    //更新
+                    this.updateStudentScoreById(studentScore);
                 }
             }
         }
@@ -211,5 +231,10 @@ public class StudentScoreService {
     public int deleteBySNumber(String sNumber) {
         return studentScoreMapper.deleteBySNumber(sNumber);
     }
+
+    public List<StudentScore> selectByCourseNumber(String courseNumber) {
+        return studentScoreMapper.selectByCourseNumber(courseNumber);
+    }
 }
+
 

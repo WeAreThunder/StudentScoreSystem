@@ -132,7 +132,8 @@ public class StudentService {
                 if (studentMapper.getStudentByNumber(sNumber) == null) {
                     studentMapper.insertSelective(student);
                 } else {
-                    studentMapper.updateByPrimaryKeySelective(student);
+                    //调用同步更新方法
+                    this.updateStudentAndScoreBySNumber(student);
                 }
             }
         }

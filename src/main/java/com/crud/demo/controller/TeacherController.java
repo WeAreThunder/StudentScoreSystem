@@ -67,18 +67,21 @@ public class TeacherController {
     public String teacherUpdate(@ModelAttribute Teacher teacher,
                                 @RequestParam("file") MultipartFile file) throws IOException {
         avatarUpload avatarUpload = new avatarUpload();
-        //删除原本的教师头像
-        Teacher dbTeacher = teacherService.getTeacherByNumber(teacher.getTNumber());
-        avatarUpload.removeAvatarByFileName(dbTeacher.getAvatar());
-
-        String result = avatarUpload.uploadUserAvatar(file);
-        if (result.equals("文件为空")){
-            System.out.println(result);
-        }else if(result.equals("格式不符")){
-            System.out.println(result);
-        }else {
-            teacher.setAvatar(result);
+        if(!file.isEmpty()){
+            String result = avatarUpload.uploadUserAvatar(file);
+            if (result.equals("文件为空")){
+                System.out.println(result);
+            }else if(result.equals("格式不符")){
+                System.out.println(result);
+            }else {
+                //删除原本的教师头像
+                Teacher dbTeacher = teacherService.getTeacherByNumber(teacher.getTNumber());
+                avatarUpload.removeAvatarByFileName(dbTeacher.getAvatar());
+                //设置新的
+                teacher.setAvatar(result);
+            }
         }
+
 
         teacherService.updateTeacherAndCourseAndScoreByNumber(teacher);
         return "redirect:/teacherList";

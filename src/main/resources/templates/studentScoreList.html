@@ -38,7 +38,11 @@
                 <td>平时成绩 25%</td>
                 <td>期中成绩 25%</td>
                 <td>期末成绩 50%</td>
-                <td>成绩</td>
+                <td>
+                    <strong>
+                        总评成绩
+                    </strong>
+                </td>
                 <td>教师工号</td>
                 <td>教师名</td>
                 <td>选择你的操作</td>
@@ -54,9 +58,21 @@
                 <td th:text="${studentScore.courseName}"></td>
                 <td th:text="${studentScore.SNumber}"></td>
                 <td th:text="${studentScore.SName}"></td>
-                <td th:text="${studentScore.scoreA}"></td>
-                <td th:text="${studentScore.scoreB}"></td>
-                <td th:text="${studentScore.scoreC}"></td>
+                <td>
+                    <span th:class="${studentScore.scoreA} >= 60 ? 'text-primary':'text-danger'">
+                        <span th:text="${studentScore.scoreA}"></span>
+                    </span>
+                </td>
+                <td>
+                    <span th:class="${studentScore.scoreB} >= 60 ? 'text-primary':'text-danger'">
+                        <span th:text="${studentScore.scoreB}"></span>
+                    </span>
+                </td>
+                <td>
+                    <span th:class="${studentScore.scoreC} >= 60 ? 'text-primary':'text-danger'">
+                        <span th:text="${studentScore.scoreC}"></span>
+                    </span>
+                </td>
                 <td>
                     <strong>
                         <span th:class="${studentScore.score} >= 60 ? 'text-primary':'text-danger'" th:text="${studentScore.score}"></span>

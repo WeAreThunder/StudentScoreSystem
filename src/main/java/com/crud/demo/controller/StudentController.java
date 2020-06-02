@@ -101,18 +101,21 @@ public class StudentController {
                                 @RequestParam("file") MultipartFile file) throws IOException {
         avatarUpload avatarUpload = new avatarUpload();
 
-        Student dbStudent = studentService.getStudentByNumber(student.getSNumber());
-        String avatarFileName = dbStudent.getAvatar();
-        avatarUpload.removeAvatarByFileName(avatarFileName);
-
-
-        String result = avatarUpload.uploadUserAvatar(file);
-        if (result.equals("文件为空")){
-            System.out.println(result);
-        }else if(result.equals("格式不符")){
-            System.out.println(result);
-        }else {
-            student.setAvatar(result);
+        //当头像时不为空时，才对头像进行操作
+        if (!file.isEmpty()){
+            String result = avatarUpload.uploadUserAvatar(file);
+            if (result.equals("文件为空")){
+                System.out.println(result);
+            }else if(result.equals("格式不符")){
+                System.out.println(result);
+            }else {
+                //当头像成功保存时，才删除旧头像
+                Student dbStudent = studentService.getStudentByNumber(student.getSNumber());
+                String avatarFileName = dbStudent.getAvatar();
+                avatarUpload.removeAvatarByFileName(avatarFileName);
+                //设置头像名称
+                student.setAvatar(result);
+            }
         }
 
         studentService.updateStudentAndScoreBySNumber(student);

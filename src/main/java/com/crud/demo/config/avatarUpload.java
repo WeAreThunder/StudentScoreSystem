@@ -46,4 +46,14 @@ public class avatarUpload {
         }
     }
 
+    public void removeAvatarByFileName(String filename){
+        if (filename != null){
+            File f = new File("D:\\MyWork\\upload\\"+filename);
+            boolean delete = f.delete();
+            System.out.println("删除了图片"+filename+"    删除返回值为："+delete);
+        }else {
+            System.out.println("无头像需要删除");
+        }
+    }
+
 }

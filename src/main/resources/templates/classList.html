@@ -26,7 +26,11 @@
             <tr th:each="class : ${classList}" align="center">
                 <td th:text="${class.getId()}"></td>
                 <td th:text="${class.getClassNumber()}"></td>
-                <td th:text="${class.getClassName()}"></td>
+                <td>
+                    <a th:href="@{'/studentsInfo?className='+${class.getClassName()}}">
+                        <span th:text="${class.getClassName()}"></span>
+                    </a>
+                </td>
                 <td>
                     <a class="btn btn-info btn-xs" th:href="@{'/classList//update/'+${class.getId()}}" >修改</a>&nbsp;
                     <script language="JavaScript">

@@ -76,20 +76,19 @@
                 </a>
             </div>
         </form>
-<!--        <script>-->
-<!--            document.getElementById("btn").onclick = function () {-->
-<!--                var score = document.getElementById("score").value;-->
-<!--                var scoreA = document.getElementById("scoreA").value;-->
-<!--                var scoreB = document.getElementById("scoreB").value;-->
-<!--                var scoreC = document.getElementById("scoreC").value;-->
-<!--                if (score >=0 && score<= 100){-->
-<!--                    return true-->
-<!--                }else{-->
-<!--                    alert("成绩只能在0到100之间");-->
-<!--                    return false-->
-<!--                }-->
-<!--            }-->
-<!--        </script>-->
+        <script>
+            document.getElementById("btn").onclick = function () {
+                var scoreA = document.getElementById("scoreA").value;
+                var scoreB = document.getElementById("scoreB").value;
+                var scoreC = document.getElementById("scoreC").value;
+                if ((scoreA >=0 && scoreA<= 100) && (scoreB >=0 && scoreB<= 100) && (scoreC >=0 && scoreC<= 100)){
+                    return true
+                }else{
+                    alert("成绩只能在0到100之间");
+                    return false
+                }
+            }
+        </script>
     </div>
 </div>
 </body>

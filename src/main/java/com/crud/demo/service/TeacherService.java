@@ -1,5 +1,6 @@
 package com.crud.demo.service;
 
+import com.crud.demo.config.avatarUpload;
 import com.crud.demo.dto.CourseDTO;
 import com.crud.demo.dto.TeacherDTO;
 import com.crud.demo.entity.Course;
@@ -64,6 +65,10 @@ public class TeacherService {
 
     public int delTeacherByNumber(String tNumber) {
         Teacher teacher = teacherMapper.getTeacherByNumber(tNumber);
+        //删除教师头像
+        avatarUpload avatarUpload = new avatarUpload();
+        avatarUpload.removeAvatarByFileName(teacher.getAvatar());
+
         List<Course> courseList = courseMapper.selectByTNumber(teacher.getTNumber());
         if (courseList.size() > 0) {
             return 0;

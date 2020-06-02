@@ -82,13 +82,14 @@ public class CourseService{
         courseMapper.updateByPrimaryKeySelective(course);
         Course dbCourse = courseMapper.selectByPrimaryKey(course.getId());
         List<StudentScore> studentScoreList = studentScoreMapper.selectByCourseNumber(dbCourse.getCourseNumber());
-        //当课程名发生变更时，遍历成绩信息，更改课程名
-        if (course.getCourseName().equals(dbCourse.getCourseName())){
-            for (StudentScore studentScore : studentScoreList) {
-                studentScore.setCourseName(dbCourse.getCourseName());
-                studentScoreMapper.updateByPrimaryKey(studentScore);
-            }
+        //当课程发生变更时，遍历成绩信息，更改课程名和教师
+        for (StudentScore studentScore : studentScoreList) {
+            studentScore.setCourseName(dbCourse.getCourseName());
+            studentScore.setTNumber(teacher.getTNumber());
+            studentScore.setTName(teacher.getTName());
+            studentScoreMapper.updateByPrimaryKey(studentScore);
         }
+
     }
 
     public List<Course> selectAll() {

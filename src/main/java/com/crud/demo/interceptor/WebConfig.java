@@ -24,7 +24,7 @@ public class WebConfig implements WebMvcConfigurer {
         //权限拦截
 
         registry.addInterceptor(powerInterceptor).addPathPatterns("/studentScore**")
-                .addPathPatterns("/student**")
+                .addPathPatterns("/student**").addPathPatterns("/studentScoreUpdate/studentScore/**")
                 .addPathPatterns("/course**")
                 .addPathPatterns("/teacher**")
                 .addPathPatterns("/class**")

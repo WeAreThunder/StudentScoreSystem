@@ -1,5 +1,6 @@
 package com.crud.demo.service;
 
+import com.crud.demo.config.avatarUpload;
 import com.crud.demo.entity.Student;
 import com.crud.demo.entity.StudentScore;
 import com.crud.demo.entity.User;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -56,6 +58,12 @@ public class StudentService {
 
 
     public void delStudentByNumber(String sNumber) {
+        //删除学生的同时，删除该学生的头像
+        Student student = studentMapper.getStudentByNumber(sNumber);
+        String avatarFileName = student.getAvatar();
+        avatarUpload avatarUpload = new avatarUpload();
+        avatarUpload.removeAvatarByFileName(avatarFileName);
+        //删除数据库中的学生信息
         studentMapper.delByNumber(sNumber);
     }
 

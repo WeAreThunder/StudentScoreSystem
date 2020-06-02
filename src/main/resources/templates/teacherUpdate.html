@@ -15,6 +15,16 @@
 <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
     <div class="container-fluid">
         <form action="/teacherUpdate" method="post" enctype="multipart/form-data" style="margin: 10px">
+            <div class="form-group">
+                <div>
+                    <span th:if="${teacher.avatar != null}">
+                        <img th:src="'/upload/'+${teacher.avatar}"/>
+                    </span>
+                    <span th:if="${teacher.avatar == null}">
+                        <img th:src="'/upload/'+'default.jpg'"/>
+                    </span>
+                </div>
+            </div>
             <div class="form-group" hidden="hidden">
                 <label for="id">工号：</label>
                 <input type="text" class="form-control" id="id" name="id" th:field="${teacher.id}">
@@ -32,11 +42,16 @@
             </div>
             <div class="form-group">
                 <label for="birthday">出生日期：</label>
-                <input type="text" class="form-control" id="birthday" name="birthday" placeholder="格式为1998-08-04" th:field="${teacher.birthday}">
+                <input type="date" class="form-control" id="birthday" name="birthday" placeholder="格式为1998-08-04" th:field="${teacher.birthday}">
             </div>
             <div class="form-group">
                 <label for="job">职称：</label>
-                <input type="text" class="form-control" id="job" name="job" placeholder="如：教师，教授，院士等等" th:field="${teacher.job}">
+<!--                <input type="text" class="form-control" id="job" name="job" placeholder="如：教师，教授，院士等等" th:field="${teacher.job}">-->
+                <select class="form-control" name="job" id="job" th:field="${teacher.job}">
+                    <option value="讲师"><span th:text="讲师"></span></option>
+                    <option value="教授"><span th:text="教授"></span></option>
+                    <option value="院士"><span th:text="院士"></span></option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="phone">手机号码：</label>
@@ -46,7 +61,7 @@
                 <label for="address">地址：</label>
                 <input type="text" class="form-control" id="address" name="address" placeholder="请输入地址" th:field="${teacher.address}">
             </div>
-            <div>
+            <div class="form-group">
                 <lable>头像上传：</lable>
                 <input class="form-control" placeholder="请选择文件" type="file" name="file"/>
             </div>

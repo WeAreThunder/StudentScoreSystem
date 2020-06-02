@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -99,6 +100,12 @@ public class StudentController {
     public String studentUpdate(@ModelAttribute Student student,
                                 @RequestParam("file") MultipartFile file) throws IOException {
         avatarUpload avatarUpload = new avatarUpload();
+
+        Student dbStudent = studentService.getStudentByNumber(student.getSNumber());
+        String avatarFileName = dbStudent.getAvatar();
+        avatarUpload.removeAvatarByFileName(avatarFileName);
+
+
         String result = avatarUpload.uploadUserAvatar(file);
         if (result.equals("文件为空")){
             System.out.println(result);

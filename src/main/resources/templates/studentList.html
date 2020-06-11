@@ -50,7 +50,7 @@
                     <span>什么都没有 ┑(￣Д ￣)┍</span>
                 </td>
             </tr>
-            <tr th:each="student : ${students}" align="center">
+            <tr th:each="student : ${students}" align="center" >
                 <td th:if="${student.avatar != null}">
                     <img th:src="'/upload/'+${student.avatar}" height="25"/>
                 </td>
@@ -70,7 +70,7 @@
                     <script language="JavaScript">
                         function delete_confirm(e)
                         {
-                            //此处提示：不推荐使用的符号，请查阅文档以获得更好的替代方案
+                            //此处提示：不推荐使用的符号，请查阅文档以获得更好的替代方案event.srcElement
                             //不过目的实现了，没关系啦
                             if (event.srcElement.outerText === "删除")
                             {

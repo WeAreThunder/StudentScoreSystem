@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/community.css">
+    <script src="/js/echarts.min.js"></script>
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
 </head>
@@ -20,6 +21,68 @@
                 <span th:text="${course.getCourseName()}"></span>
             </h1>
             <p class="list-group-item-text">学无止境</p>
+        </span>
+
+        <span class="list-group-item list-group-item-warning list-group-item-heading">
+            <form>
+                <input hidden="hidden" id="cNumber" th:value="${course.getCourseNumber()}">
+            </form>
+             <div id="main" style="width: 300px;height:200px;"></div>
+                <script th:inline="javascript">
+                    var students=[];//用来盛放X轴坐标值：学生
+                    var scores=[];//用来盛放Y坐标值：成绩
+
+
+                    var cNumber = document.getElementById('cNumber').value;
+                    $.ajax({
+                        type : "get",
+                        async : false, //同步请求
+                        url : "/TableImage/"+cNumber,
+                        data : {},
+                        dataType : "json",
+                        success : function(result) {
+                            if (result.length > 0) {
+                                var list = result;
+                                for(var i=0;i<list.length;i++){
+                                    students.push(list[i].sname);    //遍历月份并填入数组
+                                }
+                                for(var i=0;i<list.length;i++){
+                                    scores.push(list[i].score);    //遍历蒸发量并填入数组
+                                }
+                            }
+
+                        },
+                    });
+                    // 基于准备好的dom，初始化echarts实例
+                    var myChart = echarts.init(document.getElementById('main'));
+                    // 指定图表的配置项和数据
+                    var option = {
+                        title: {
+                            text: '成绩展示'
+                        },
+                        tooltip: {},
+                        legend: {
+                            data:['成绩']
+                        },
+                        xAxis: {
+                            // data: ["王小雷","张可爱","王雷鸣","李大美","钱不多"]
+                            data: students
+                        },
+                        yAxis: {},
+                        series: [{
+                            name: '成绩',
+                            type: 'bar',
+                            // data: [23, 28, 79, 46, 81]
+                            data: scores
+                        }]
+                    };
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+
+
+
+
+                </script>
         </span>
 
         <span class="list-group-item-heading">
